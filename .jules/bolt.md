@@ -107,3 +107,9 @@
 **Learning:** I identified a significant performance bottleneck in the `get_predictions` and `get_scalping_signals` endpoints where the entire `historical_data` list (often containing thousands of rows) was being converted to a Pandas DataFrame, only to be sliced to 500 bars immediately after. Benchmark tests showed that converting 100k rows of a list of dicts to a DataFrame is ~100x slower than slicing the list first.
 
 **Action:** I modified `api/main.py` to slice the incoming `historical_data` list to the last 1000 items BEFORE calling the DataFrame constructor. This ensures that the CPU-intensive DataFrame creation only processes the data actually needed for inference, drastically reducing latency and memory usage for large payloads.
+
+## 2026-02-17 - Robust Distributed Lock with Retry
+
+**Learning:** I identified a flaw in the Redis distributed lock implementation in `api/routers/predictions.py` where it only waited once for 0.1s if the lock was busy, leading to potential cache stampedes under high load. A single short wait is insufficient when the protected operation (ML model metrics calculation) takes longer than the wait time.
+
+**Action:** I implemented a retry loop (5 attempts with 0.1s delay) to properly handle lock contention. This ensures that concurrent requests wait for the result to be cached instead of falling back to redundant expensive calculations or failing. I also verified this behavior with a dedicated test case using `unittest.mock`.
