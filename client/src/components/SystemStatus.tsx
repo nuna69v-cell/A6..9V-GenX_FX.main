@@ -61,7 +61,12 @@ const SystemStatusComponent: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-6 mt-8 animate-pulse">
+      <div
+        className="bg-white rounded-lg shadow-md p-6 mt-8 animate-pulse"
+        role="status"
+        aria-label="Loading system status"
+      >
+        <span className="sr-only">Loading system status...</span>
         <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
@@ -74,9 +79,9 @@ const SystemStatusComponent: React.FC = () => {
 
   if (error) {
     return (
-      <div className="bg-white rounded-lg shadow-md p-6 mt-8">
+      <div className="bg-white rounded-lg shadow-md p-6 mt-8" role="alert">
         <div className="text-red-600 flex items-center gap-2">
-          <Activity className="w-5 h-5" />
+          <Activity className="w-5 h-5" aria-hidden="true" />
           <span>{error}</span>
         </div>
       </div>
@@ -86,43 +91,43 @@ const SystemStatusComponent: React.FC = () => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mt-8">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800 flex items-center gap-2">
-        <Activity className="w-6 h-6 text-blue-600" />
+        <Activity className="w-6 h-6 text-blue-600" aria-hidden="true" />
         System Health & Metrics
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="p-4 bg-blue-50 rounded-lg border border-blue-100">
+      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" aria-label="System Metrics">
+        <li className="p-4 bg-blue-50 rounded-lg border border-blue-100">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-blue-600">API Status</span>
-            <Shield className={`w-4 h-4 ${status?.api_status === 'healthy' ? 'text-green-500' : 'text-red-500'}`} />
+            <Shield className={`w-4 h-4 ${status?.api_status === 'healthy' ? 'text-green-500' : 'text-red-500'}`} aria-hidden="true" />
           </div>
           <div className="text-lg font-bold text-gray-900 capitalize">{status?.api_status}</div>
-        </div>
+        </li>
 
-        <div className="p-4 bg-green-50 rounded-lg border border-green-100">
+        <li className="p-4 bg-green-50 rounded-lg border border-green-100">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-green-600">Database</span>
-            <Database className={`w-4 h-4 ${status?.database_status === 'healthy' ? 'text-green-500' : 'text-red-500'}`} />
+            <Database className={`w-4 h-4 ${status?.database_status === 'healthy' ? 'text-green-500' : 'text-red-500'}`} aria-hidden="true" />
           </div>
           <div className="text-lg font-bold text-gray-900 capitalize">{status?.database_status}</div>
-        </div>
+        </li>
 
-        <div className="p-4 bg-purple-50 rounded-lg border border-purple-100">
+        <li className="p-4 bg-purple-50 rounded-lg border border-purple-100">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-purple-600">ML Model</span>
-            <Zap className={`w-4 h-4 ${status?.model_status === 'healthy' ? 'text-green-500' : 'text-red-500'}`} />
+            <Zap className={`w-4 h-4 ${status?.model_status === 'healthy' ? 'text-green-500' : 'text-red-500'}`} aria-hidden="true" />
           </div>
           <div className="text-lg font-bold text-gray-900 capitalize">{status?.model_status}</div>
-        </div>
+        </li>
 
-        <div className="p-4 bg-orange-50 rounded-lg border border-orange-100">
+        <li className="p-4 bg-orange-50 rounded-lg border border-orange-100">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium text-orange-600">Trading</span>
-            <div className={`w-3 h-3 rounded-full ${status?.trading_enabled ? 'bg-green-500' : 'bg-red-500'}`}></div>
+            <div className={`w-3 h-3 rounded-full ${status?.trading_enabled ? 'bg-green-500' : 'bg-red-500'}`} aria-hidden="true"></div>
           </div>
           <div className="text-lg font-bold text-gray-900">{status?.trading_enabled ? 'Enabled' : 'Disabled'}</div>
-        </div>
-      </div>
+        </li>
+      </ul>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         <div className="text-center">
@@ -145,7 +150,7 @@ const SystemStatusComponent: React.FC = () => {
 
       <div className="mt-6 pt-6 border-t border-gray-100 flex flex-wrap gap-4 items-center justify-between text-sm text-gray-500">
         <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4" />
+          <Clock className="w-4 h-4" aria-hidden="true" />
           <span>Last Updated: {status?.last_update ? new Date(status.last_update).toLocaleTimeString() : 'N/A'}</span>
         </div>
         <div className="flex items-center gap-2">

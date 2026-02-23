@@ -4,9 +4,7 @@ Tests for EA API Key Authentication
 Tests the new authentication system for EA HTTP endpoints.
 """
 
-import json
-import os
-from datetime import datetime
+from datetime import UTC, datetime
 from unittest.mock import patch
 
 import pytest
@@ -33,10 +31,10 @@ INVALID_API_KEY = "invalid_api_key"
 
 @pytest.fixture(autouse=True)
 def cleanup_state():
-    """Clear global state before each test"""
+    """Clear global state between tests"""
     if FASTAPI_AVAILABLE:
-        pending_signals.clear()
         ea_connections.clear()
+        pending_signals.clear()
         trade_results.clear()
     yield
 
@@ -47,9 +45,22 @@ def client():
     if not FASTAPI_AVAILABLE:
         return None
 
-    # Patch the global settings object directly
+    # We patch the settings object directly on the class attribute or instance
+    # Since settings is likely an instance, we patch the attribute on that instance.
+    # However, api.config.settings is an instance of Settings.
+    # We can use unittest.mock.patch.object
+
     with patch("api.config.settings.EA_API_KEY", TEST_API_KEY):
-        yield TestClient(app)
+        return TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def mock_settings():
+    if FASTAPI_AVAILABLE:
+        with patch("api.config.settings.EA_API_KEY", TEST_API_KEY):
+            yield
+    else:
+        yield
 
 
 @pytest.fixture
@@ -104,7 +115,7 @@ class TestAuthenticationRequired:
                 "timeframe": "H1",
                 "magic_number": 12345,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/ea_info", json=ea_data)
         assert response.status_code == 401
@@ -121,7 +132,7 @@ class TestAuthenticationRequired:
                 "account": 12345,
                 "magic_number": 12345,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/heartbeat", json=heartbeat_data)
         assert response.status_code == 401
@@ -141,7 +152,7 @@ class TestAuthenticationRequired:
                 "account": 12345,
                 "magic_number": 12345,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/account_status", json=status_data)
         assert response.status_code == 401
@@ -159,7 +170,7 @@ class TestAuthenticationRequired:
                 "execution_price": 1.1000,
                 "slippage": 0.0001,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/trade_result", json=result_data)
         assert response.status_code == 401
@@ -210,7 +221,7 @@ class TestAuthenticationSuccess:
                 "timeframe": "M15",
                 "magic_number": 99999,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/ea_info", json=ea_data, headers=auth_headers)
         assert response.status_code == 200
@@ -230,7 +241,7 @@ class TestAuthenticationSuccess:
                 "account": 99999,
                 "magic_number": 99999,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/heartbeat", json=heartbeat_data, headers=auth_headers)
         assert response.status_code == 200
@@ -252,7 +263,7 @@ class TestAuthenticationSuccess:
                 "account": 99999,
                 "magic_number": 99999,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post(
             "/account_status", json=status_data, headers=auth_headers
@@ -274,7 +285,7 @@ class TestAuthenticationSuccess:
                 "execution_price": 1.0950,
                 "slippage": 0.0002,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/trade_result", json=result_data, headers=auth_headers)
         assert response.status_code == 200
@@ -319,7 +330,11 @@ class TestMultipleAPIKeys:
 
     def test_multiple_keys_config(self):
         """Test that multiple keys can be configured"""
-        with patch("api.config.settings.EA_API_KEYS", "key1,key2,key3"):
+        # Patch keys directly
+        with patch("api.config.settings.EA_API_KEYS", "key1,key2,key3"), patch(
+            "api.config.settings.EA_API_KEY", None
+        ):
+
             from api.utils.ea_auth import get_valid_ea_api_keys
 
             valid_keys = get_valid_ea_api_keys()
@@ -331,7 +346,10 @@ class TestMultipleAPIKeys:
 
     def test_keys_with_whitespace(self):
         """Test that keys with whitespace are handled correctly"""
-        with patch("api.config.settings.EA_API_KEYS", "key1, key2 , key3"):
+        with patch("api.config.settings.EA_API_KEYS", "key1, key2 , key3"), patch(
+            "api.config.settings.EA_API_KEY", None
+        ):
+
             from api.utils.ea_auth import get_valid_ea_api_keys
 
             valid_keys = get_valid_ea_api_keys()
@@ -377,7 +395,7 @@ class TestEndToEndWorkflow:
                 "timeframe": "H4",
                 "magic_number": 77777,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/ea_info", json=ea_info, headers=auth_headers)
         assert response.status_code == 200
@@ -394,7 +412,7 @@ class TestEndToEndWorkflow:
                 "account": 77777,
                 "magic_number": 77777,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/heartbeat", json=heartbeat, headers=auth_headers)
         assert response.status_code == 200
@@ -430,7 +448,7 @@ class TestEndToEndWorkflow:
                 "execution_price": 145.50,
                 "slippage": 0.0005,
             },
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
         response = client.post("/trade_result", json=trade_result, headers=auth_headers)
         assert response.status_code == 200

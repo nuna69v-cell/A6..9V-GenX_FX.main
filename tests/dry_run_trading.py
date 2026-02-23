@@ -2,12 +2,11 @@ import asyncio
 import logging
 import os
 import sys
-from datetime import datetime
 
 # Add the project root to the path
 sys.path.append(os.getcwd())
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 from core.data_sources.fxcm_provider import MockFXCMProvider
 from core.trading_engine import TradingEngine
@@ -27,7 +26,7 @@ async def dry_run():
     engine.data_provider = mock_provider
 
     # Mock EnsemblePredictor to avoid training/loading issues and return a consistent signal
-    mock_predictor = MagicMock()
+    MagicMock()
 
     # Ensure it returns an awaitable
     async def mock_predict(*args, **kwargs):

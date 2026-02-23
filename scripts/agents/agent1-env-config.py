@@ -5,7 +5,6 @@ This script creates .env.production and .env.docker files with the
 necessary environment variables for the production and Docker environments.
 """
 
-import os
 
 # Production environment configuration
 prod_env = {

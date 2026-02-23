@@ -1,4 +1,3 @@
-import json
 import os
 import socket
 import subprocess
@@ -22,7 +21,7 @@ def check_port(host, port, timeout=2):
             return True
     except (socket.timeout, ConnectionRefusedError):
         return False
-    except Exception as e:
+    except Exception:
         return False
 
 

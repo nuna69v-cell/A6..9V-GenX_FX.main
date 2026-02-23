@@ -4,9 +4,7 @@ Script to create GitHub Gists from files.
 Usage: python scripts/create_gist.py [OPTIONS] FILE_PATH
 """
 
-import json
 import os
-import sys
 from pathlib import Path
 from typing import Optional
 

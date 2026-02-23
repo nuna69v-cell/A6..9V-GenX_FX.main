@@ -5,11 +5,10 @@ Comprehensive test of the FXCM ForexConnect API integration with spreadsheet out
 """
 
 import asyncio
-import json
 import logging
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 

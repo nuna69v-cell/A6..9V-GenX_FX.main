@@ -4,7 +4,6 @@ GenX FX CLI - Comprehensive Trading System Management
 Complete command-line interface for managing the GenX FX trading platform
 """
 
-import asyncio
 import json
 import logging
 import os
@@ -13,14 +12,13 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Dict
 
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
 from rich.prompt import Confirm, Prompt
-from rich.syntax import Syntax
 from rich.table import Table
 from rich.tree import Tree
 
@@ -391,10 +389,9 @@ def config():
         risk_percentage = Prompt.ask("Risk percentage per trade", default="2.0")
 
         # Write to .env file
-        env_content = []
         if cli.env_file.exists():
             with open(cli.env_file, "r") as f:
-                env_content = f.readlines()
+                f.readlines()
 
         # Update or add variables
         updated_vars = {

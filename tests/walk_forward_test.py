@@ -4,7 +4,7 @@ Simulates how the bot performs in unknown future market conditions.
 """
 
 import unittest
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 import numpy as np
 import pandas as pd

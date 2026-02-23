@@ -1,16 +1,11 @@
-import asyncio
 import logging
-from datetime import datetime
 from typing import List, Optional
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 
-from ..config import settings
 from ..models.schemas import (
     OrderRequest,
     OrderResponse,
-    OrderStatus,
-    OrderType,
     PortfolioStatus,
     SignalType,
     TradeSignal,

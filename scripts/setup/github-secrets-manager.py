@@ -5,7 +5,6 @@ Comprehensive secrets and environment management for GitHub Actions
 """
 
 import base64
-import json
 import os
 from pathlib import Path
 

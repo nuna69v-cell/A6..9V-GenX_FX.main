@@ -596,7 +596,7 @@ class TechnicalIndicators:
         try:
             high = df["high"].values
             low = df["low"].values
-            close = df["close"].values
+            df["close"].values
 
             length = len(df)
             sar = np.zeros(length)

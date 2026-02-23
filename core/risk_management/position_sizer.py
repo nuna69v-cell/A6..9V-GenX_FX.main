@@ -3,11 +3,10 @@ Position Sizing and Risk Management for GenX FX Trading System
 Manages position sizes, risk limits, and portfolio risk
 """
 
-import math
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, Optional
 
 from .sortino_ratio_analyzer import SortinoRatioAnalyzer
 

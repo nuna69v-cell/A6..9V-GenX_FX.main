@@ -20,7 +20,7 @@ profile_data = {
     "bio": "AI-Powered Forex Trading Platform Developer | GenX-FX Creator",
 }
 
-url = f"https://api.github.com/user"
+url = "https://api.github.com/user"
 headers = {"Authorization": f"token {GITHUB_TOKEN}"}
 response = requests.patch(url, headers=headers, json=profile_data)
 

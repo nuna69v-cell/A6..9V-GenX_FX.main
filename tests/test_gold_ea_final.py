@@ -6,7 +6,6 @@ Tests with proper confidence values and realistic gold signals
 
 import csv
 import os
-from datetime import datetime
 
 
 class GoldEAFinalTest:
@@ -100,7 +99,7 @@ class GoldEAFinalTest:
 
                 # Check if pair is enabled
                 if not self.enabled_pairs.get(symbol, False):
-                    print(f"   ⏭️  SKIPPED: Pair disabled in EA settings")
+                    print("   ⏭️  SKIPPED: Pair disabled in EA settings")
                     continue
 
                 # Check confidence threshold
@@ -117,11 +116,11 @@ class GoldEAFinalTest:
                 account_balance = 10000  # Example $10k account
                 risk_amount = account_balance * risk_percent / 100
 
-                print(f"   🎯 Risk Calculation:")
+                print("   🎯 Risk Calculation:")
                 print(f"      • Multiplier: ×{multiplier:.1f}")
                 print(f"      • Risk %: {risk_percent:.1f}%")
                 print(f"      • Risk $: ${risk_amount:.0f}")
-                print(f"   ✅ TRADE EXECUTED!")
+                print("   ✅ TRADE EXECUTED!")
 
                 results.append(
                     {
@@ -147,7 +146,7 @@ class GoldEAFinalTest:
             print("\n❌ No trades executed in test")
             return
 
-        print(f"\n📊 Test Results Analysis")
+        print("\n📊 Test Results Analysis")
         print("=" * 30)
 
         total_trades = len(results)
@@ -170,7 +169,7 @@ class GoldEAFinalTest:
             print(f"Average risk for high confidence: {avg_high_risk:.1f}%")
 
         # Risk distribution
-        print(f"\n📈 Risk Distribution:")
+        print("\n📈 Risk Distribution:")
         for result in results:
             print(
                 f"   {result['symbol']:>6} {result['signal']:>4}: "
@@ -182,7 +181,7 @@ class GoldEAFinalTest:
         """
         Tests edge cases and safety limits for the risk calculation logic.
         """
-        print(f"\n🧪 Edge Case Testing")
+        print("\n🧪 Edge Case Testing")
         print("=" * 25)
 
         test_cases = [
@@ -218,7 +217,7 @@ def main():
     # Test 3: Edge cases
     tester.test_edge_cases()
 
-    print(f"\n🎉 Gold Master EA Test Complete!")
+    print("\n🎉 Gold Master EA Test Complete!")
     print("✅ All core logic validated and working correctly!")
 
 

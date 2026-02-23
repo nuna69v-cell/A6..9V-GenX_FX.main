@@ -5,7 +5,7 @@ Validates that WhatsApp integration is properly configured and ready for deploym
 
 import os
 import sys
-from typing import List, Tuple
+from typing import Tuple
 
 # Colors for terminal output
 GREEN = "\033[0;32m"

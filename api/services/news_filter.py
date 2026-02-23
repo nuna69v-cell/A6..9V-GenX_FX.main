@@ -3,13 +3,10 @@ News Filter Service for GenX FX Trading Platform
 Provides functionality to pause trading during high-impact economic news events.
 """
 
-import asyncio
 import logging
-import os
 from datetime import datetime, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 
-import aiohttp
 
 logger = logging.getLogger(__name__)
 

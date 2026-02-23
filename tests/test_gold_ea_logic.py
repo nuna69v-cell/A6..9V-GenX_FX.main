@@ -6,7 +6,6 @@ Simulates the EA's decision-making process
 
 import csv
 import os
-from datetime import datetime
 
 
 class GoldEASimulator:
@@ -109,7 +108,7 @@ class GoldEASimulator:
 
         with open(csv_file, "r") as file:
             reader = csv.reader(file)
-            header = next(reader)  # Skip header
+            next(reader)  # Skip header
 
             gold_signals = 0
             processed_signals = 0
@@ -175,7 +174,7 @@ class GoldEASimulator:
                 print(
                     f"   💰 Entry: {entry_price} | SL: {stop_loss} | TP: {take_profit}"
                 )
-                print(f"   ✅ WOULD EXECUTE TRADE")
+                print("   ✅ WOULD EXECUTE TRADE")
                 print()
 
                 results.append(
@@ -191,7 +190,7 @@ class GoldEASimulator:
 
                 processed_signals += 1
 
-        print(f"📊 Test Summary:")
+        print("📊 Test Summary:")
         print(f"   Total gold signals found: {gold_signals}")
         print(f"   Signals processed: {processed_signals}")
         print(f"   Signals executed: {len(results)}")

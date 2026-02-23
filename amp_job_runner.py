@@ -7,13 +7,12 @@ Connects with AMP and runs the configured trading pipeline
 import asyncio
 import json
 import logging
-import os
 import shutil
 import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 # Configure logging
 logging.basicConfig(
@@ -164,7 +163,7 @@ class AMPJobRunner:
             try:
                 crypto_sentiment = await services["reddit"].get_crypto_sentiment()
                 sentiment_data["reddit"] = crypto_sentiment
-                print(f"    📱 Collected Reddit sentiment data")
+                print("    📱 Collected Reddit sentiment data")
             except Exception as e:
                 print(f"    ⚠️ Reddit sentiment collection failed: {e}")
 
@@ -183,14 +182,14 @@ class AMPJobRunner:
                     sentiment_data
                 )
                 predictions["sentiment"] = sentiment_analysis
-                print(f"    🤖 Generated sentiment analysis")
+                print("    🤖 Generated sentiment analysis")
 
                 # Generate trading signals
                 trading_signals = await services["gemini"].analyze_trading_signals(
                     market_data, sentiment_data
                 )
                 predictions["signals"] = trading_signals
-                print(f"    🎯 Generated trading signals")
+                print("    🎯 Generated trading signals")
 
             except Exception as e:
                 print(f"    ⚠️ AI prediction generation failed: {e}")
@@ -273,7 +272,7 @@ class AMPJobRunner:
             json.dump(report, f, indent=2)
 
         print(f"  📄 Report saved: {report_file}")
-        print(f"  🎯 Next job scheduled for execution")
+        print("  🎯 Next job scheduled for execution")
 
     async def run_deploy_job(self):
         """Execute deployment job"""
@@ -334,7 +333,7 @@ class AMPJobRunner:
         for service in self.config.get("enabled_services", []):
             print(f"  - {service}")
 
-        print(f"Features Enabled:")
+        print("Features Enabled:")
         features = [
             ("Sentiment Analysis", "enable_sentiment_analysis"),
             ("Social Signals", "enable_social_signals"),

@@ -4,7 +4,6 @@ Manages notifications across multiple channels (Telegram, Discord, WhatsApp)
 """
 
 import logging
-import os
 from typing import Dict, List, Optional
 
 logger = logging.getLogger(__name__)

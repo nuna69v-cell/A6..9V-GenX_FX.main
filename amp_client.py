@@ -204,7 +204,7 @@ def main():
             print("❌ Unknown command")
             continue
 
-        print(f"\nResponse:")
+        print("\nResponse:")
         print(json.dumps(result, indent=2))
 
 

@@ -4,24 +4,15 @@ Head CLI - Unified Command Line Interface for GenX Trading Platform
 Wraps all existing CLI tools into a single, organized interface
 """
 
-import asyncio
-import json
 import logging
-import os
 import subprocess
-import sys
-from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import List, Optional
 
 import typer
-from rich.columns import Columns
 from rich.console import Console
 from rich.panel import Panel
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.prompt import Confirm
 from rich.table import Table
-from rich.tree import Tree
 
 # Configure logging
 logging.basicConfig(
@@ -346,7 +337,7 @@ def help_all():
 
         console.print(f"  [dim]Direct access: python3 {cli_info['file']} --help[/dim]")
 
-    console.print(f"\n[bold yellow]Head CLI Commands:[/bold yellow]")
+    console.print("\n[bold yellow]Head CLI Commands:[/bold yellow]")
     console.print("  • overview - System overview")
     console.print("  • status - Complete system status")
     console.print("  • auth - Authentication management")

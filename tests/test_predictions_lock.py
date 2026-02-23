@@ -3,7 +3,6 @@ from unittest.mock import AsyncMock, patch
 from api.main import app
 from fastapi.testclient import TestClient
 import json
-import asyncio
 
 # Setup TestClient
 client = TestClient(app)

@@ -72,7 +72,7 @@ def main():
                     redis_client.setex(
                         "system_metrics", CACHE_DURATION_SECONDS, json.dumps(metrics)
                     )
-                    logging.info(f"Successfully wrote metrics to Redis.")
+                    logging.info("Successfully wrote metrics to Redis.")
                 except redis.exceptions.ConnectionError as e:
                     logging.error(f"Could not write to Redis: {e}. Reconnecting...")
                     break  # Break inner loop to trigger reconnection

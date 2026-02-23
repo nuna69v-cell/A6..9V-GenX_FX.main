@@ -5,14 +5,13 @@ Runs the trading backend continuously with gold signal generation and VPS commun
 """
 
 import asyncio
-import json
 import logging
 import os
 import signal
 import subprocess
 import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 

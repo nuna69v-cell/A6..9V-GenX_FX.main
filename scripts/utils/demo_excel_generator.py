@@ -8,11 +8,9 @@ import os
 import random
 from datetime import datetime, timedelta
 
-import numpy as np
 import openpyxl
 import pandas as pd
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
-from openpyxl.utils.dataframe import dataframe_to_rows
 
 
 class ForexSignalGenerator:
@@ -438,13 +436,13 @@ class ForexSignalGenerator:
         print(f"   • Average Confidence: {df['Confidence'].mean():.1%}")
         print(f"   • Average Risk/Reward: {df['Risk_Reward'].mean():.2f}")
 
-        print(f"\n📁 Output Files:")
+        print("\n📁 Output Files:")
         print(f"   📊 Excel Dashboard: {excel_file}")
         print(f"   📈 MT4 Signals: {mt4_file}")
         print(f"   📈 MT5 Signals: {mt5_file}")
         print(f"   🔗 JSON API: {json_file}")
 
-        print(f"\n✨ Demo completed successfully!")
+        print("\n✨ Demo completed successfully!")
         print(
             f"📂 Check the '{self.signal_output_dir}' directory for all output files."
         )

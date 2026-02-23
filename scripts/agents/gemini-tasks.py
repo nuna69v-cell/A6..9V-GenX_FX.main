@@ -1,5 +1,4 @@
 # Gemini Task 1: Fix API endpoint mismatch
-import os
 
 # Update backend to match frontend expectations
 api_routes = """

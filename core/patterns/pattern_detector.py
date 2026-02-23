@@ -2,9 +2,8 @@
 Pattern Detection for Trading
 """
 
-from typing import Any, Dict
+from typing import Dict
 
-import numpy as np
 import pandas as pd
 
 

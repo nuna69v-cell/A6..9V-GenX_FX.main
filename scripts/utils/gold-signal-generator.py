@@ -5,11 +5,9 @@ Specialized service for generating gold trading signals and sending to VPS
 """
 
 import asyncio
-import json
 import logging
 import sys
-import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -156,7 +154,6 @@ class GoldSignalGenerator:
 
         # Simple rule-based logic
         hour = current_time.hour
-        minute = current_time.minute
 
         # Market session analysis
         if 8 <= hour <= 16:  # London/NY session

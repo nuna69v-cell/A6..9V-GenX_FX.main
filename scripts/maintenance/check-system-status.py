@@ -4,14 +4,11 @@ GenX FX System Status Checker
 Comprehensive system health and configuration checker
 """
 
-import json
 import os
 import platform
 import subprocess
 import sys
-import time
 from datetime import datetime
-from pathlib import Path
 
 import requests
 

@@ -1,6 +1,4 @@
-import json
 import os
-import subprocess
 
 # Load environment variables
 with open(".env", "r") as f:

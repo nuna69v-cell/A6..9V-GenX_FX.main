@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Dict, List
+from typing import Any, Dict
 
 import pandas as pd
 import talib
@@ -141,7 +141,7 @@ class ScalpingService:
         rsi = talib.RSI(close, timeperiod=14)
 
         idx = -1
-        c_close = close.iloc[idx]
+        close.iloc[idx]
         c_low = df["low"].iloc[idx]
         c_high = df["high"].iloc[idx]
         c_upper = upper.iloc[idx]

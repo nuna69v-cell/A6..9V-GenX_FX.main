@@ -1,10 +1,9 @@
 import asyncio
 import logging
 import time
-from typing import Any, Dict, List
+from typing import List
 
 import aiohttp
-import pandas as pd
 
 # Configure logging
 logging.basicConfig(

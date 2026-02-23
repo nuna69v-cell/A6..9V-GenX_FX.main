@@ -6,14 +6,11 @@ Focuses on generating reliable trading signals for MT4/5 Expert Advisors
 import asyncio
 import json
 import logging
-import os
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime, timedelta
 from enum import Enum
-from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-import numpy as np
 import pandas as pd
 
 from core.ai_models.ensemble_predictor import EnsemblePredictor

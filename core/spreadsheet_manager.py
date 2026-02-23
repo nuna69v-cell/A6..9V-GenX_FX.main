@@ -3,20 +3,16 @@ Spreadsheet Manager for MT4/5 Signal Output
 Exports trading signals to Excel/CSV files for EA consumption
 """
 
-import asyncio
 import csv
 import json
 import logging
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 import numpy as np
 import openpyxl
-import pandas as pd
-from openpyxl.formatting.rule import ColorScaleRule, DataBarRule
-from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.styles import Alignment, Font, PatternFill
 
 logger = logging.getLogger(__name__)
 

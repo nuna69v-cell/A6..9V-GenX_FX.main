@@ -5,15 +5,15 @@ Combines multiple ML models for better accuracy and robustness
 
 import logging
 import warnings
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
+from datetime import datetime
+from typing import Dict
 
 import joblib
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score
 from sklearn.neural_network import MLPClassifier
 from sklearn.svm import SVC
 
@@ -158,7 +158,7 @@ class EnsembleModel:
         atr = data["high"] - data["low"]
         atr_ma = atr.rolling(window=14).mean()
 
-        price_range = (
+        (
             data["high"].rolling(window=20).max() - data["low"].rolling(window=20).min()
         )
         price_ma = data["close"].rolling(window=20).mean()

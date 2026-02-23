@@ -13,7 +13,7 @@ import time
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import urlparse
 
 # Add the api directory to Python path
 sys.path.append(str(Path(__file__).parent / "api"))

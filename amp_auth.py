@@ -4,9 +4,7 @@ AMP Authentication Module
 Handles user authentication and session management
 """
 
-import hashlib
 import json
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, Optional

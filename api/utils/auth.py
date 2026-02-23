@@ -13,7 +13,6 @@ except Exception:  # jose not installed in minimal/runtime builds
     jwt = _DummyJWT()
 import logging
 import os
-from datetime import datetime, timedelta
 from typing import Optional
 
 from ..config import settings

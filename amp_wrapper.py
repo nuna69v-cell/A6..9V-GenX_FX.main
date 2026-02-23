@@ -6,7 +6,6 @@ This script ensures that the current directory is in the Python path and then
 imports and runs the main Typer application from 'amp_cli.py'.
 """
 
-import os
 import sys
 from pathlib import Path
 

@@ -1,14 +1,11 @@
 import asyncio
 import json
 import logging
-import time
 from datetime import datetime
-from typing import List, Optional
+from typing import List
 
-import joblib
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 
-from ..config import settings
 from ..models.schemas import (ModelMetrics, PredictionRequest,
                               PredictionResponse, SignalType)
 from ..redis import redis_client

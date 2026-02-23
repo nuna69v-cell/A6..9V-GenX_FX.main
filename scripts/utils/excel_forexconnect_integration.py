@@ -7,13 +7,12 @@ Generates Excel dashboard with real market data and signals
 
 import os
 import sys
-import time
 from datetime import datetime, timedelta
 
 import numpy as np
 import openpyxl
 import pandas as pd
-from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.styles import Border, Font, PatternFill, Side
 
 # Add project root to path
 sys.path.append(str(os.path.dirname(__file__)))
@@ -74,7 +73,7 @@ class ForexConnectExcelGenerator:
             return False
 
         try:
-            print(f"🔌 Connecting to FXCM ForexConnect...")
+            print("🔌 Connecting to FXCM ForexConnect...")
             print(f"   URL: {self.url}")
             print(f"   Connection: {self.connection_type}")
             print(f"   Username: {self.username}")
@@ -543,7 +542,7 @@ class ForexConnectExcelGenerator:
             json_file = generator.create_json_output(df)
 
             # Print summary
-            print(f"\n📈 Live Trading Summary:")
+            print("\n📈 Live Trading Summary:")
             print(
                 f"   • Data Source: {'ForexConnect (LIVE)' if self.connected else 'Mock Data'}"
             )
@@ -551,7 +550,7 @@ class ForexConnectExcelGenerator:
             print(f"   • Average Spread: {df['Spread'].mean():.1f} pips")
             print(f"   • Average Confidence: {df['Confidence'].mean():.1%}")
 
-            print(f"\n📁 Output Files:")
+            print("\n📁 Output Files:")
             print(f"   📊 Live Dashboard: {excel_file}")
             print(f"   📈 MT4 Signals: {mt4_file}")
             print(f"   📈 MT5 Signals: {mt5_file}")

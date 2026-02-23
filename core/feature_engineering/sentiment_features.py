@@ -3,8 +3,7 @@ Sentiment Features for GenX FX Trading System
 Features related to market sentiment and news analysis
 """
 
-from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd

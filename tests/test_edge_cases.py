@@ -1,8 +1,6 @@
-import asyncio
-import json
 import os
 import time
-from unittest.mock import AsyncMock, patch
+from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
@@ -332,7 +330,7 @@ class TestPerformanceEdgeCases:
             "metadata": {"large_field": "y" * 10000},
         }
 
-        response = client.post("/api/v1/data", json=large_data)
+        client.post("/api/v1/data", json=large_data)
 
         final_memory = process.memory_info().rss
         memory_increase = final_memory - initial_memory

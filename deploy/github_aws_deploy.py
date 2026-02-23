@@ -5,12 +5,11 @@ Uses GitHub API with token authentication for AWS deployment
 """
 
 import argparse
-import json
 import os
 import subprocess
 import sys
 import time
-from typing import Any, Dict, Optional
+from typing import Optional
 
 import boto3
 import docker
@@ -115,8 +114,8 @@ class GitHubAWSDployer:
         """Setup AWS credentials from GitHub repository secrets"""
         try:
             # Get repository secrets (requires admin access)
-            repo_owner = self._get_repo_owner()
-            repo_name = self._get_repo_name()
+            self._get_repo_owner()
+            self._get_repo_name()
 
             # Note: GitHub API doesn't allow reading secrets directly
             # This would need to be done through GitHub CLI or environment variables

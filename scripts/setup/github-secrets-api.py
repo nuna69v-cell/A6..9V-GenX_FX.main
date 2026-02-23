@@ -1,9 +1,8 @@
 import base64
-import json
 import os
 
 import requests
-from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 
 # GitHub API setup

@@ -1,5 +1,4 @@
 import csv
-import os
 from pathlib import Path
 
 
@@ -21,7 +20,6 @@ def verify_signal_format():
 
             # Expected header for new EA version
             # timestamp,symbol,action,entry_price,stop_loss,take_profit,confidence,reasoning,source
-            expected_fields = 9
             if len(header) < 7:
                 print(
                     f"❌ Error: Header has only {len(header)} fields, expected at least 7."
@@ -41,12 +39,12 @@ def verify_signal_format():
 
                 # Verify types
                 try:
-                    symbol = row[1]
+                    row[1]
                     action = row[2]
-                    entry = float(row[3])
-                    sl = float(row[4])
-                    tp = float(row[5])
-                    confidence = float(row[6])
+                    float(row[3])
+                    float(row[4])
+                    float(row[5])
+                    float(row[6])
 
                     if action not in ["BUY", "SELL", "HOLD"]:
                         print(

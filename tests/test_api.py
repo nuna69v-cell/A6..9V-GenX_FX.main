@@ -1,8 +1,7 @@
-import asyncio
 import json
 import os
 import sqlite3
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 

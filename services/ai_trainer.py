@@ -4,22 +4,16 @@ Provides continuous learning and model improvement capabilities
 """
 
 import asyncio
-import json
 import logging
-import threading
 import time
-from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta
+from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, Optional
 
 import aiohttp
-import joblib
-import numpy as np
 import pandas as pd
 import redis
-import schedule
-import websockets
 from pymongo import MongoClient
 from sqlalchemy import create_engine, text
 
@@ -223,7 +217,7 @@ class AITrainingService:
     ) -> Optional[pd.DataFrame]:
         """Get market data from exchange API"""
         try:
-            url = f"https://api.bybit.com/v5/market/kline"
+            url = "https://api.bybit.com/v5/market/kline"
             params = {
                 "category": "spot",
                 "symbol": symbol,

@@ -6,7 +6,7 @@ import asyncio
 import logging
 import os
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 
 import praw

@@ -9,7 +9,6 @@ import json
 import logging
 import os
 import sys
-from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -26,8 +25,6 @@ except Exception:
     pass
 os.environ.setdefault("PYTHONIOENCODING", "utf-8")
 from rich.panel import Panel
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.prompt import Confirm
 from rich.table import Table
 
 # Configure logging
@@ -658,7 +655,7 @@ def schedule(
             stop_scheduler()
         elif status:
             status_info = get_scheduler_status()
-            console.print(f"📊 [bold blue]Scheduler Status:")
+            console.print("📊 [bold blue]Scheduler Status:")
             console.print(f"   Running: {'✅' if status_info['is_running'] else '❌'}")
             console.print(
                 f"   Enabled: {'✅' if status_info['config']['enabled'] else '❌'}"
@@ -706,7 +703,7 @@ def monitor(
             display_dashboard()
         elif status:
             status_info = get_system_status()
-            console.print(f"📊 [bold blue]System Status:")
+            console.print("📊 [bold blue]System Status:")
 
             # Authentication
             auth = status_info["authentication"]
@@ -740,7 +737,7 @@ def monitor(
             if alerts_list:
                 console.print(f"   🚨 Alerts: {len(alerts_list)} active")
             else:
-                console.print(f"   ✅ No alerts")
+                console.print("   ✅ No alerts")
 
         elif report:
             report_file = generate_report()
@@ -752,7 +749,7 @@ def monitor(
             status_info = get_system_status()
             alerts_list = status_info["alerts"]
             if alerts_list:
-                console.print(f"🚨 [bold red]Active Alerts:")
+                console.print("🚨 [bold red]Active Alerts:")
                 for alert in alerts_list:
                     level_icon = (
                         "🔴"

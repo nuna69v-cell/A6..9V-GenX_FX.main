@@ -8,25 +8,17 @@ Master command-line interface that integrates all CLI components:
 - All existing CLI tools
 """
 
-import asyncio
-import json
 import logging
-import os
 import shutil
 import subprocess
 import sys
-from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Dict, List
 
 import typer
-from rich.columns import Columns
 from rich.console import Console
-from rich.layout import Layout
 from rich.panel import Panel
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
-from rich.prompt import Confirm, Prompt
-from rich.syntax import Syntax
 from rich.table import Table
 from rich.tree import Tree
 

@@ -5,7 +5,6 @@ This script outlines the tasks required for setting up project organization
 and monitoring for the application.
 """
 
-import os
 
 print("Amazon Q: Project organization and monitoring setup")
 

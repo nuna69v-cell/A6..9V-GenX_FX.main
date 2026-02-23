@@ -6,7 +6,7 @@ Sends trading signals and notifications to WhatsApp groups
 import logging
 import os
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Dict
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ class WhatsAppBot:
         self.enabled = bool(self.group_url)
 
         if self.enabled:
-            logger.info(f"WhatsApp bot initialized for group")
+            logger.info("WhatsApp bot initialized for group")
         else:
             logger.warning("WhatsApp bot not configured - WHATSAPP_GROUP_URL not set")
 

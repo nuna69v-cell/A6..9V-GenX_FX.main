@@ -3,7 +3,6 @@ News Integration Service for GenX Trading Platform
 """
 
 import asyncio
-import json
 import logging
 import os
 from datetime import datetime, timedelta

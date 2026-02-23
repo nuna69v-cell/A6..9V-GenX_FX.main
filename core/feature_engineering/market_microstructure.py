@@ -3,7 +3,7 @@ Market Microstructure Features for GenX FX Trading System
 Features related to market microstructure and order flow
 """
 
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional
 
 import numpy as np
 import pandas as pd

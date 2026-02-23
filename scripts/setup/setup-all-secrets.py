@@ -1,4 +1,3 @@
-import os
 
 """
 Security note:

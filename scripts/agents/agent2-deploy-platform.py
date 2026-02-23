@@ -6,7 +6,6 @@ the application to Vercel and Railway.
 """
 
 import json
-import subprocess
 
 
 def deploy_to_vercel():

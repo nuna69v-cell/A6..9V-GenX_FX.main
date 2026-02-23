@@ -5,30 +5,19 @@ Specialized CLI for Cursor AI integration with collaborative features
 Includes contributions from Ali (CLI Enhancement) and Jules (Deployment Automation)
 """
 
-import asyncio
 import json
 import logging
 import os
-import shutil
-import subprocess
-import sys
-import tempfile
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict
 
 import typer
-from rich.align import Align
-from rich.columns import Columns
 from rich.console import Console
-from rich.live import Live
 from rich.panel import Panel
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
-from rich.prompt import Confirm, IntPrompt, Prompt
-from rich.status import Status
-from rich.syntax import Syntax
+from rich.prompt import Confirm
 from rich.table import Table
-from rich.tree import Tree
 
 # Configure logging
 logging.basicConfig(
@@ -449,7 +438,7 @@ def jules_deploy(
         if t in targets
     )
 
-    console.print(f"\n📋 [bold]Deployment Plan[/bold]")
+    console.print("\n📋 [bold]Deployment Plan[/bold]")
     console.print(f"Environment: {environment}")
     console.print(f"Targets: {', '.join(targets)}")
     console.print(
@@ -606,7 +595,7 @@ def cursor_assist(
         time.sleep(2)
 
     # AI recommendations (simulated)
-    console.print(f"\n🔍 [bold]AI Analysis Results[/bold]")
+    console.print("\n🔍 [bold]AI Analysis Results[/bold]")
 
     if task == "code_review":
         recommendations = [

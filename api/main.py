@@ -14,7 +14,7 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, field_validator
 
 # Check if ai_models module exists and can be imported
 try:
@@ -160,7 +160,9 @@ app.include_router(market_data.router, prefix="/api/v1")
 app.include_router(predictions.router, prefix="/api/v1")
 app.include_router(system.router, prefix="/api/v1")
 app.include_router(trading.router, prefix="/api/v1")
-app.include_router(ea_http.router)  # EA HTTP endpoints (no /api/v1 prefix for compatibility)
+app.include_router(
+    ea_http.router
+)  # EA HTTP endpoints (no /api/v1 prefix for compatibility)
 
 
 # --- Optimization: Define static API responses as constants ---

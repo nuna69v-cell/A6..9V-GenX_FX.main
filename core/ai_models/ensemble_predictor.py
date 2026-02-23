@@ -3,9 +3,7 @@ Advanced Ensemble AI Predictor for Forex Trading
 Combines multiple ML models for robust trading signal generation
 """
 
-import asyncio
 import logging
-import os
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -18,14 +16,7 @@ import xgboost as xgb
 
 # ML imports
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import (
-    accuracy_score,
-    classification_report,
-    precision_recall_fscore_support,
-)
 from sklearn.model_selection import TimeSeriesSplit, cross_val_score
-from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import RobustScaler, StandardScaler
 from sklearn.svm import SVC
 

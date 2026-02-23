@@ -4,12 +4,9 @@ Docker Deployment Verification Script
 Checks the current state of your AMP system Docker setup
 """
 
-import json
-import os
 import subprocess
-import sys
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict
 
 
 def check_file_exists(file_path: str) -> bool:

@@ -5,7 +5,7 @@ Validates trading signals across multiple timeframes for confirmation
 
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 import numpy as np
 import pandas as pd

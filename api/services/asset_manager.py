@@ -3,20 +3,16 @@ Asset Management Service for Google Sheets/Excel integration.
 Provides centralized portfolio tracking, risk management, and trade logging.
 """
 
-import asyncio
-import json
 import logging
 import os
-from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Union
+from dataclasses import dataclass
+from datetime import datetime
+from typing import List, Optional
 
-import gspread
 import openpyxl
-import pandas as pd
 from google.oauth2.service_account import Credentials
 from gspread_asyncio import AsyncioGspreadClientManager
-from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.styles import Font, PatternFill
 
 from ..config.settings import get_settings
 

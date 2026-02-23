@@ -4,10 +4,8 @@ Test and Cleanup Script for GenX Trading Platform
 Tests all systems and performs repository cleanup
 """
 
-import asyncio
 import json
 import logging
-import os
 import shutil
 import subprocess
 import sys

@@ -5,10 +5,8 @@ Runs the trading backend as a Windows service for continuous operation
 """
 
 import logging
-import os
 import socket
 import sys
-import time
 from pathlib import Path
 
 import servicemanager

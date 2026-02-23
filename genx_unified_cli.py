@@ -5,30 +5,22 @@ Unified command-line interface that wraps all CLI tools and deployment functiona
 Includes Cursor AI collaboration features with Ali and Jules CLI contributions
 """
 
-import asyncio
 import json
 import logging
 import os
-import shutil
 import subprocess
-import sys
-import tempfile
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List
 
 import typer
-import yaml
-from rich.columns import Columns
 from rich.console import Console
 from rich.layout import Layout
 from rich.panel import Panel
 from rich.progress import BarColumn, Progress, SpinnerColumn, TextColumn
-from rich.prompt import Confirm, Prompt
-from rich.status import Status
+from rich.prompt import Confirm
 from rich.syntax import Syntax
 from rich.table import Table
-from rich.tree import Tree
 
 # Configure logging
 logging.basicConfig(
@@ -706,7 +698,7 @@ def monitor():
         return
 
     # Create monitoring layout
-    layout = Layout()
+    Layout()
 
     # Deployment status table
     table = Table(

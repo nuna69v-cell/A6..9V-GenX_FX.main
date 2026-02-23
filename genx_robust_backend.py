@@ -5,13 +5,10 @@ Handles all encoding issues and provides robust gold signal generation
 """
 
 import asyncio
-import json
 import logging
 import os
-import signal
 import sys
-import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 

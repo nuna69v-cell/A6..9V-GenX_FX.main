@@ -6,7 +6,6 @@ This script tests the ForexConnect API connection - credentials should be set vi
 
 import os
 import sys
-import time
 
 import pytest
 

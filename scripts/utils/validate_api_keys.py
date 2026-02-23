@@ -5,11 +5,10 @@ Validates all API keys and tests connections
 """
 
 import asyncio
-import json
 import os
 import sys
 from datetime import datetime
-from typing import Dict, List, Tuple
+from typing import Dict
 
 import aiohttp
 
@@ -302,7 +301,7 @@ class APIKeyValidator:
 async def main():
     """Main validation function"""
     validator = APIKeyValidator()
-    results = await validator.validate_all()
+    await validator.validate_all()
     status = validator.generate_report()
 
     # Exit with appropriate code

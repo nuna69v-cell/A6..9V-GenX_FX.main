@@ -4,8 +4,6 @@ Docker Deployment Status Checker
 Monitors the deployment progress and provides status updates
 """
 
-import json
-import time
 from datetime import datetime
 
 

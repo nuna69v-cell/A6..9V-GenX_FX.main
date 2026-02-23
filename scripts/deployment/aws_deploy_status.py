@@ -5,9 +5,7 @@ Checks the current state of AWS deployment and provides guidance
 """
 
 import json
-import os
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional

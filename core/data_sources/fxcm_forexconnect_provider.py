@@ -4,17 +4,13 @@ Direct integration with FXCM's ForexConnect trading platform
 """
 
 import asyncio
-import json
 import logging
-import os
-import sys
 import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 import aiohttp
-import numpy as np
 import pandas as pd
 
 # Import ForexConnect (ensure virtual environment is activated)

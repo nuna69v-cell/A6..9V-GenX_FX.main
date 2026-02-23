@@ -3,12 +3,10 @@ Enhanced Google Gemini AI integration for advanced market analysis, sentiment pr
 Provides contextual intelligence for trading decisions and market understanding.
 """
 
-import asyncio
 import json
 import logging
 from dataclasses import dataclass
-from datetime import datetime, timedelta
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List
 
 import google.generativeai as genai
 

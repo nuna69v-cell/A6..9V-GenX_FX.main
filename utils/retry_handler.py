@@ -7,7 +7,7 @@ import asyncio
 import functools
 import logging
 import random
-from typing import Any, Callable, Optional, Tuple, Type
+from typing import Callable, Tuple, Type
 
 logger = logging.getLogger(__name__)
 
@@ -34,13 +34,11 @@ def retry_async(
         @functools.wraps(func)
         async def wrapper(*args, **kwargs):
             delay = initial_delay
-            last_exception = None
 
             for attempt in range(max_retries + 1):
                 try:
                     return await func(*args, **kwargs)
                 except exceptions as e:
-                    last_exception = e
                     if attempt == max_retries:
                         logger.error(
                             f"Max retries ({max_retries}) reached for {func.__name__}. "
