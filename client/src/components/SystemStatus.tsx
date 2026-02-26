@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Activity, Shield, Database, Zap, Clock } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Activity, Shield, Database, Zap, Clock, RefreshCw } from 'lucide-react';
 
 interface SystemStatusData {
   api_status: string;
@@ -27,37 +27,45 @@ const SystemStatusComponent: React.FC = () => {
   const [status, setStatus] = useState<SystemStatusData | null>(null);
   const [metrics, setMetrics] = useState<SystemMetrics | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const API = import.meta.env.VITE_API_URL || '';
-      try {
-        const [statusRes, metricsRes] = await Promise.all([
-          fetch(`${API}/api/v1/system/status`),
-          fetch(`${API}/api/v1/system/metrics`)
-        ]);
+  const fetchData = useCallback(async () => {
+    const API = import.meta.env.VITE_API_URL || '';
+    try {
+      const [statusRes, metricsRes] = await Promise.all([
+        fetch(`${API}/api/v1/system/status`),
+        fetch(`${API}/api/v1/system/metrics`)
+      ]);
 
-        if (statusRes.ok && metricsRes.ok) {
-          const statusData = await statusRes.json();
-          const metricsData = await metricsRes.json();
-          setStatus(statusData);
-          setMetrics(metricsData);
-        } else {
-          setError('Failed to fetch system data');
-        }
-      } catch (err) {
-        setError('Error connecting to the system API');
-        console.error(err);
-      } finally {
-        setLoading(false);
+      if (statusRes.ok && metricsRes.ok) {
+        const statusData = await statusRes.json();
+        const metricsData = await metricsRes.json();
+        setStatus(statusData);
+        setMetrics(metricsData);
+        setError(null);
+      } else {
+        setError('Failed to fetch system data');
       }
-    };
+    } catch (err) {
+      setError('Error connecting to the system API');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
+  useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 30000); // Refresh every 30 seconds
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchData]);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchData();
+    setIsRefreshing(false);
+  };
 
   if (loading) {
     return (
@@ -90,10 +98,21 @@ const SystemStatusComponent: React.FC = () => {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mt-8">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800 flex items-center gap-2">
-        <Activity className="w-6 h-6 text-blue-600" aria-hidden="true" />
-        System Health & Metrics
-      </h2>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
+          <Activity className="w-6 h-6 text-blue-600" aria-hidden="true" />
+          System Health & Metrics
+        </h2>
+        <button
+          onClick={handleRefresh}
+          disabled={loading || isRefreshing}
+          className="p-2 text-gray-500 hover:text-blue-600 rounded-full hover:bg-blue-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          aria-label={isRefreshing ? 'Refreshing system status' : 'Refresh system status'}
+          title="Refresh system status"
+        >
+          <RefreshCw className={`w-5 h-5 ${isRefreshing ? 'animate-spin' : ''}`} aria-hidden="true" />
+        </button>
+      </div>
 
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" aria-label="System Metrics">
         <li className="p-4 bg-blue-50 rounded-lg border border-blue-100">
