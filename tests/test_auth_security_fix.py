@@ -1,9 +1,11 @@
-
 import os
 import unittest
 from unittest.mock import MagicMock, patch
+
 from fastapi import HTTPException
+
 from api.utils.auth import get_current_user
+
 
 class TestAuthLogic(unittest.TestCase):
 
@@ -36,6 +38,7 @@ class TestAuthLogic(unittest.TestCase):
         user = get_current_user(credentials=credentials)
         self.assertEqual(user, {"username": "realuser", "exp": 123456})
         mock_jwt.decode.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()

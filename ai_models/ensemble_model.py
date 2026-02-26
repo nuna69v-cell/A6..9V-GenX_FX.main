@@ -158,9 +158,7 @@ class EnsembleModel:
         atr = data["high"] - data["low"]
         atr_ma = atr.rolling(window=14).mean()
 
-        (
-            data["high"].rolling(window=20).max() - data["low"].rolling(window=20).min()
-        )
+        (data["high"].rolling(window=20).max() - data["low"].rolling(window=20).min())
         price_ma = data["close"].rolling(window=20).mean()
 
         regime = (atr_ma / price_ma > 0.02).astype(int)  # 1 = trending, 0 = ranging

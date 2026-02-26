@@ -10,7 +10,6 @@ import signal
 import sys
 from datetime import datetime, timedelta
 
-
 # Import all our custom services
 sys.path.append("/opt/genx")
 from ai_models.ensemble_predictor import create_ensemble_predictor
