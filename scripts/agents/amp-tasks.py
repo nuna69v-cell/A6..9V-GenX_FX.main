@@ -8,7 +8,6 @@ used with the 'github-secrets-api.py' script.
 
 import os
 
-
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 REPO = "Mouy-leng/GenX_FX"
 
