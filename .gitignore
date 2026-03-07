@@ -1,0 +1,76 @@
+# Monorepo .gitignore
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Credentials and secrets
+**/SecureVault/
+**/EmergencyBackup/
+**/keys/
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.json
+secrets.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+venv/
+ENV/
+env/
+.venv
+forexconnect_env_37/
+*.egg-info/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Backup files
+backups/
+*_backup/
+*_BACKUP/
+*.zip
+*.tar.gz
+*.rar
+
+# Windows
+$RECYCLE.BIN/
+*.lnk
+
+# SSH Keys
+id_rsa
+id_rsa.pub
+usr/
