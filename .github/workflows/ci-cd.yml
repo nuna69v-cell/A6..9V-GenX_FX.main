@@ -200,7 +200,7 @@ jobs:
       contents: read
     steps:
     - name: Cleanup old images from registry
-      uses: actions/delete-package-versions@v4
+      uses: actions/delete-package-versions@v5
       with:
         package-name: genx-fx
         package-type: container
