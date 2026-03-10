@@ -10,7 +10,7 @@ lightgbm==4.6.0
 
 # Technical Analysis and Financial Data
 ta-lib==0.6.5
-yfinance==0.2.65
+yfinance==1.2.0
 
 # Essential Libraries
 joblib==1.5.3
