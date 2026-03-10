@@ -40,7 +40,7 @@ click==8.1.7
 aiofiles==23.2.0
 
 # Math libraries (with wheel support)
-scipy==1.16.1
+scipy==1.17.1
 
 # Monitoring
 psutil==7.0.0
