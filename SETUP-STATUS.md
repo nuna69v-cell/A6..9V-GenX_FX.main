@@ -118,3 +118,4 @@ jules login
 - `exness-docker/verify-setup.ps1` - Setup verification
 - `exness-docker/SETUP-STATUS.md` - This file
 
+- 🔄 Reviewed and prepared for initialization.
