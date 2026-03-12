@@ -23,6 +23,7 @@ def clear_ea_state():
 
         ea_http.ea_connections = {}
         from collections import deque
+
         ea_http.pending_signals = deque()
         ea_http.trade_results = []
     except ImportError:
