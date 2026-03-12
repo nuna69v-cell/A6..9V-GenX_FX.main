@@ -10,7 +10,9 @@ def test_production_settings_defaults_insecure():
     with patch.dict(os.environ, {}, clear=True):
         with pytest.raises(ValidationError) as exc_info:
             ProductionSettings()
-        assert "SECRET_KEY must be changed" in str(exc_info.value) or "EXNESS_LOGIN must be changed" in str(exc_info.value)
+        assert "SECRET_KEY must be changed" in str(
+            exc_info.value
+        ) or "EXNESS_LOGIN must be changed" in str(exc_info.value)
 
 
 def test_production_settings_valid():
