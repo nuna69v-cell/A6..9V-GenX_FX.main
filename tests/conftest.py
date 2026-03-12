@@ -1,6 +1,7 @@
 import os
 import sys
 from unittest.mock import MagicMock
+
 import pytest
 
 # Set testing environment variables before any application code is imported
@@ -22,7 +23,7 @@ def clear_ea_state():
         from api.routers import ea_http
 
         ea_http.ea_connections = {}
-        ea_http.pending_signals = []
+        ea_http.pending_signals.clear()
         ea_http.trade_results = []
     except ImportError:
         pass
