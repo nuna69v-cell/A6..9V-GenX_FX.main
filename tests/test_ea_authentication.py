@@ -15,7 +15,8 @@ try:
 
     from api.config import settings
     from api.main import app
-    from api.routers.ea_http import ea_connections, pending_signals, trade_results
+    from api.routers.ea_http import (ea_connections, pending_signals,
+                                     trade_results)
 
     FASTAPI_AVAILABLE = True
 except ImportError:

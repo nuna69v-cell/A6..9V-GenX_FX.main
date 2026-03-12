@@ -6,12 +6,8 @@ from typing import List
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException
 
-from ..models.schemas import (
-    ModelMetrics,
-    PredictionRequest,
-    PredictionResponse,
-    SignalType,
-)
+from ..models.schemas import (ModelMetrics, PredictionRequest,
+                              PredictionResponse, SignalType)
 from ..redis import redis_client
 from ..services.data_service import DataService
 from ..services.ml_service import MLService
