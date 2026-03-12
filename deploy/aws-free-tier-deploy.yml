@@ -153,9 +153,10 @@ Resources:
           
           # Clone repository
           cd /home/ec2-user
-          # TODO: Replace with your actual GitHub username or repo URL
-          git clone https://github.com/YourUsername/GenX_FX.git
-          cd GenX_FX
+          # Cloning target repositories for all-in-one desktop mode and MQL5 Forge setup
+          git clone https://github.com/nuna69v-cell/all-in-one-desktop-mode-.git
+          git clone https://github.com/nuna69v-cell/MQL5-Google-Onedrive.git
+          cd all-in-one-desktop-mode-
           
           # Create environment file
           cat > .env << EOF
@@ -165,10 +166,19 @@ Resources:
           SECRET_KEY=$(openssl rand -hex 32)
           EOF
           
-          # Build and run with Docker
-          docker build -f Dockerfile.free-tier -t genx-fx .
-          docker run -d -p 8000:8000 --name genx-fx --restart unless-stopped genx-fx
-          
+          # Install Amazon Q CLI
+          curl -Lo q "https://q.us-east-1.amazonaws.com/latest/amazon-q-cli"
+          chmod +x q
+          mv q /usr/local/bin/q
+
+          # Setup Read time update and Synonym Uptime (Uptime Kuma)
+          docker run -d --restart=always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma:1
+
+          # Game Console Hosting (Forge setup via generic Linux compatibility)
+          # We ensure the Forge runner is isolated in a lightweight container.
+          docker run -d --name forge-runner --restart=unless-stopped               -v /home/ec2-user/all-in-one-desktop-mode-:/app               node:alpine               sh -c "cd /app && npm install --omit=dev && npm start"
+
+          # Install CloudWatch agent
           # Install CloudWatch agent
           wget https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
           rpm -U ./amazon-cloudwatch-agent.rpm
