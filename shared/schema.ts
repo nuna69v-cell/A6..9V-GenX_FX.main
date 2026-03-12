@@ -126,6 +126,29 @@ export const tradingBots = pgTable("trading_bots", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const botConfig = pgTable("bot_config", {
+  id: serial("id").primaryKey(),
+  symbols: text("symbols").array().notNull().default([]),
+  marketOpen: text("market_open").notNull().default("09:00"),
+  marketClose: text("market_close").notNull().default("17:00"),
+  intervalMinutes: integer("interval_minutes").notNull().default(30),
+  isEnabled: boolean("is_enabled").notNull().default(true),
+  apiProvider: text("api_provider").notNull().default("gemini"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const botConfigInsertSchema = z.object({
+  symbols: z.array(z.string()).optional(),
+  marketOpen: z.string().optional(),
+  marketClose: z.string().optional(),
+  intervalMinutes: z.number().int().positive().optional(),
+  isEnabled: z.boolean().optional(),
+  apiProvider: z.string().optional(),
+});
+
+export type InsertBotConfig = z.infer<typeof botConfigInsertSchema>;
+export type BotConfig = typeof botConfig.$inferSelect;
+
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
   tradingAccounts: many(tradingAccounts),
