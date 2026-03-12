@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  runner:
+    image: code.forgejo.org/forgejo/runner:latest
+    container_name: forgejo-runner
+    environment:
+      - FORGEJO_INSTANCE=https://codeberg.org
+      - FORGEJO_RUNNER_TOKEN=${FORGEJO_RUNNER_TOKEN}
+    volumes:
+      - ./data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
