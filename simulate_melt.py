@@ -1,6 +1,7 @@
 import time
 import sys
 
+
 def simulate_hot_melt():
     tasks = [
         "Initializing JULES_API Connection...",
@@ -10,7 +11,7 @@ def simulate_hot_melt():
         "Merging unrelated histories...",
         "RESETTING HARD to origin/main...",
         "Pushing to secondary stream: MQL5...",
-        "✅ SYNC COMPLETE."
+        "✅ SYNC COMPLETE.",
     ]
 
     print("--- STARTING LIVE SIMULATION ---")
@@ -21,8 +22,9 @@ def simulate_hot_melt():
 
         sys.stdout.write(f"\r[{bar}] {task}")
         sys.stdout.flush()
-        time.sleep(1.5) # Slowed down so you can watch it on your phone
+        time.sleep(1.5)  # Slowed down so you can watch it on your phone
     print("\n\nSimulation finished. System is stable.")
+
 
 if __name__ == "__main__":
     simulate_hot_melt()
