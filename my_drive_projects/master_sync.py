@@ -1,5 +1,6 @@
 import os
 import subprocess
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -7,8 +8,9 @@ load_dotenv()
 DRIVE_PATH = os.getenv("DRIVE_PATH")
 ACCOUNTS = {
     "mouyleng172": os.getenv("GH_TOKEN_MOUY"),
-    "LengKundee": os.getenv("GH_TOKEN_LENG")
+    "LengKundee": os.getenv("GH_TOKEN_LENG"),
 }
+
 
 def hot_melting_iron_sync(repo_name, remote_url):
     """Force merges and syncs repositories to the local drive."""
@@ -23,6 +25,7 @@ def hot_melting_iron_sync(repo_name, remote_url):
     subprocess.run(["git", "fetch", "--all"])
     subprocess.run(["git", "reset", "--hard", "origin/main"])
     print(f"✅ {repo_name} is synchronized.")
+
 
 if __name__ == "__main__":
     # Example execution for your main repo
