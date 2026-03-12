@@ -10,11 +10,12 @@ load_dotenv()
 # Dictionary of accounts and their respective tokens
 TOKENS = {
     "mouyleng172": os.getenv("GH_USER_TOKEN"),
-    "LengKundee": os.getenv("GH_TOKEN")
+    "LengKundee": os.getenv("GH_TOKEN"),
 }
 
 # Base directory for storing cloned accounts
 ACCOUNTS_DIR = os.path.join(os.getcwd(), "Accounts")
+
 
 def get_repo_map_and_clone():
     master_map = {}
@@ -33,7 +34,7 @@ def get_repo_map_and_clone():
         url = "https://api.github.com/user/repos?per_page=100&affiliation=owner"
         headers = {
             "Authorization": f"token {token}",
-            "Accept": "application/vnd.github.v3+json"
+            "Accept": "application/vnd.github.v3+json",
         }
 
         response = requests.get(url, headers=headers)
@@ -52,13 +53,15 @@ def get_repo_map_and_clone():
                 clone_url = r["clone_url"]
 
                 # Add to Master Map
-                master_map[user].append({
-                    "name": repo_name,
-                    "url": clone_url,
-                    "branch": r["default_branch"],
-                    "description": r["description"],
-                    "private": r["private"]
-                })
+                master_map[user].append(
+                    {
+                        "name": repo_name,
+                        "url": clone_url,
+                        "branch": r["default_branch"],
+                        "description": r["description"],
+                        "private": r["private"],
+                    }
+                )
 
                 # --- BULK CLONE LOGIC ---
                 target_repo_dir = os.path.join(user_dir, repo_name)
@@ -77,20 +80,25 @@ def get_repo_map_and_clone():
                             ["git", "clone", auth_clone_url, target_repo_dir],
                             check=True,
                             stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE
+                            stderr=subprocess.PIPE,
                         )
                         print(f"     🎉 Successfully cloned {repo_name}.")
                     except subprocess.CalledProcessError as e:
                         print(f"     ❌ Failed to clone {repo_name}.")
                         # print(f"        Error: {e.stderr.decode('utf-8').strip()}")
         else:
-            print(f"❌ Failed to fetch {user}: HTTP {response.status_code} - {response.text}")
+            print(
+                f"❌ Failed to fetch {user}: HTTP {response.status_code} - {response.text}"
+            )
 
     # Write the Master Map to JSON
     with open(".master-map.json", "w", encoding="utf-8") as f:
         json.dump(master_map, f, indent=4)
 
-    print("\n🗺️ Master Map created and all repositories are synced to your local drive!")
+    print(
+        "\n🗺️ Master Map created and all repositories are synced to your local drive!"
+    )
+
 
 if __name__ == "__main__":
     print("🚀 Starting GenX-FX Master Synchronizer...")
