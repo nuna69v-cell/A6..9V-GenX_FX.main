@@ -5,8 +5,13 @@ from api.config import ProductionSettings, Settings, DevelopmentSettings, get_se
 
 def test_production_settings_defaults_insecure():
     """Test that ProductionSettings raises ValueError when initialized with default values."""
-    with pytest.raises(ValueError, match=".*SECRET_KEY must be changed.*"):
-        ProductionSettings()
+    env_vars = {
+        "EXNESS_LOGIN": "secure_login_123",
+        "EXNESS_PASSWORD": "secure_password_123"
+    }
+    with patch.dict(os.environ, env_vars, clear=True):
+        with pytest.raises(ValueError, match=".*SECRET_KEY must be changed.*"):
+            ProductionSettings()
 
 def test_production_settings_valid():
     """Test that ProductionSettings initializes correctly when valid values are provided."""
@@ -15,7 +20,7 @@ def test_production_settings_valid():
         "EXNESS_LOGIN": "secure_login_123",
         "EXNESS_PASSWORD": "secure_password_123"
     }
-    with patch.dict(os.environ, env_vars):
+    with patch.dict(os.environ, env_vars, clear=True):
         settings = ProductionSettings()
         assert settings.SECRET_KEY == "secure_secret_key"
         assert settings.EXNESS_LOGIN == "secure_login_123"
@@ -28,7 +33,7 @@ def test_production_settings_exness_login_insecure():
         # EXNESS_LOGIN uses default
         "EXNESS_PASSWORD": "secure_password_123"
     }
-    with patch.dict(os.environ, env_vars):
+    with patch.dict(os.environ, env_vars, clear=True):
         with pytest.raises(ValueError, match=".*EXNESS_LOGIN must be changed.*"):
             ProductionSettings()
 
@@ -39,7 +44,7 @@ def test_production_settings_exness_password_insecure():
         "EXNESS_LOGIN": "secure_login_123",
         # EXNESS_PASSWORD uses default
     }
-    with patch.dict(os.environ, env_vars):
+    with patch.dict(os.environ, env_vars, clear=True):
         with pytest.raises(ValueError, match=".*EXNESS_PASSWORD must be changed.*"):
             ProductionSettings()
 
@@ -68,7 +73,7 @@ def test_get_settings_production():
         "EXNESS_LOGIN": "secure_login_123",
         "EXNESS_PASSWORD": "secure_password_123"
     }
-    with patch.dict(os.environ, env_vars):
+    with patch.dict(os.environ, env_vars, clear=True):
         settings_obj = get_settings()
         assert isinstance(settings_obj, ProductionSettings)
 
