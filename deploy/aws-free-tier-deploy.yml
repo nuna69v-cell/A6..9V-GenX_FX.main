@@ -167,9 +167,10 @@ Resources:
           EOF
           
           # Install Amazon Q CLI
-          curl -Lo q "https://q.us-east-1.amazonaws.com/latest/amazon-q-cli"
-          chmod +x q
-          mv q /usr/local/bin/q
+          # Requires Node.js. Installing via npm...
+          curl -sL https://rpm.nodesource.com/setup_20.x | bash -
+          yum install -y nodejs
+          npm install -g @aws/q
 
           # Setup Read time update and Synonym Uptime (Uptime Kuma)
           docker run -d --restart=always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma:1

@@ -13,9 +13,13 @@ aws --version
 
 # 2. Install Amazon Q CLI (q)
 echo "📦 Installing Amazon Q CLI..."
-curl -Lo q "https://q.us-east-1.amazonaws.com/latest/amazon-q-cli"
-chmod +x q
-sudo mv q /usr/local/bin/q
+# Requires Node.js. Installing via npm...
+if ! command -v npm &> /dev/null; then
+    echo "Node.js not found. Installing..."
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+fi
+sudo npm install -g @aws/q
 q --version || echo "q installed but may require interactive setup."
 
 # 3. Setup Repositories for Forge and MQL5
