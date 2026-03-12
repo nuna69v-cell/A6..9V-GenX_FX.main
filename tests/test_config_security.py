@@ -1,8 +1,10 @@
 import os
-import pytest
 from unittest.mock import patch
-from api.config import ProductionSettings, Settings, DevelopmentSettings, get_settings
+
+import pytest
 from pydantic_core import ValidationError
+
+from api.config import DevelopmentSettings, ProductionSettings, Settings, get_settings
 
 
 def test_production_settings_defaults_insecure():
