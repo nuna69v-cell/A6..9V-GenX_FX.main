@@ -6,6 +6,7 @@ import { Analytics } from '@vercel/analytics/react'
 import SystemTestResults from './components/SystemTestResults'
 import SystemStatus from './components/SystemStatus'
 import Billing from './pages/Billing';
+import ContactUs from './pages/ContactUs';
 
 const Home = () => {
   const [health, setHealth] = useState<any>(null)
@@ -195,12 +196,27 @@ function App() {
                 Billing
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  `px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-colors ${
+                    isActive
+                      ? 'text-blue-700 font-bold underline decoration-2 underline-offset-4'
+                      : 'text-gray-600 hover:text-blue-700 hover:underline'
+                  }`
+                }
+              >
+                Contact Us
+              </NavLink>
+            </li>
           </ul>
         </nav>
         <main id="main-content" tabIndex={-1} className="focus:outline-none">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/billing" element={<Billing />} />
+            <Route path="/contact" element={<ContactUs />} />
           </Routes>
         </main>
         <Analytics />
