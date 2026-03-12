@@ -1,0 +1,9 @@
+[submodule "external_repos/office-js"]
+	path = external_repos/office-js
+	url = https://github.com/nuna69v-cell/office-js.git
+[submodule "external_repos/Microsoft-Teams-Samples"]
+	path = external_repos/Microsoft-Teams-Samples
+	url = https://github.com/nuna69v-cell/Microsoft-Teams-Samples.git
+[submodule "external_repos/office"]
+	path = external_repos/office
+	url = https://github.com/nuna69v-cell/office.git
