@@ -1,6 +1,7 @@
 import os
 import sys
 from unittest.mock import MagicMock
+
 import pytest
 
 # Set testing environment variables before any application code is imported
