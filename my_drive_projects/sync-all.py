@@ -1,7 +1,8 @@
-import requests
 import json
 import os
 import subprocess
+
+import requests
 from dotenv import load_dotenv
 
 # Load tokens from .env file

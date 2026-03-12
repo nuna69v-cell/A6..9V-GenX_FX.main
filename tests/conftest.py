@@ -1,8 +1,9 @@
+import collections
 import os
 import sys
 from unittest.mock import MagicMock
+
 import pytest
-import collections
 
 # Set testing environment variables before any application code is imported
 os.environ["TESTING"] = "true"
