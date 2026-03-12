@@ -1,0 +1,3 @@
+[submodule "logs_repo"]
+	path = logs_repo
+	url = https://github.com/nuna69v-cell/logs_repo.git
