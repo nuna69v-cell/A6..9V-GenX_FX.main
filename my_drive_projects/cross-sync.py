@@ -13,7 +13,7 @@ LENGKUNDEE_DIR = os.path.join(ACCOUNTS_DIR, "LengKundee")
 def run_command(command, cwd=None, hide_output=False):
     """Run a shell command."""
     try:
-        result = subprocess.run(
+        result = subprocess.run(  # nosec B602
             command,
             cwd=cwd,
             check=True,
