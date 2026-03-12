@@ -76,3 +76,5 @@ id_rsa.pub
 usr/
 exness-credentials.env
 secrets.env
+my_drive_projects/
+!my_drive_projects/.gitkeep
