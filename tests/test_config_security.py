@@ -3,8 +3,7 @@ from unittest.mock import patch
 
 import pytest
 
-from api.config import (DevelopmentSettings, ProductionSettings, Settings,
-                        get_settings)
+from api.config import DevelopmentSettings, ProductionSettings, Settings, get_settings
 
 
 def test_production_settings_defaults_insecure():

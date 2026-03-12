@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 os.environ["TESTING"] = "1"
 
 from api.main import app
+
 # Mock dependencies
 from api.utils.auth import get_current_user
 
