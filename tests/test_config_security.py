@@ -8,7 +8,9 @@ from api.config import DevelopmentSettings, ProductionSettings, Settings, get_se
 
 def test_production_settings_defaults_insecure():
     """Test that ProductionSettings raises ValueError when initialized with default values."""
-    with pytest.raises(ValueError, match="must be changed from default in production environment"):
+    with pytest.raises(
+        ValueError, match="must be changed from default in production environment"
+    ):
         ProductionSettings()
 
 
