@@ -10,8 +10,9 @@ load_dotenv()
 # Tokens from your .env
 TOKENS = {
     "mouyleng172": os.getenv("GH_USER_TOKEN"),
-    "LengKundee": os.getenv("GH_TOKEN")
+    "LengKundee": os.getenv("GH_TOKEN"),
 }
+
 
 def get_repo_map():
     master_map = {}
@@ -45,14 +46,16 @@ def get_repo_map():
                 "name": r["name"],
                 "url": r["clone_url"],
                 "branch": r.get("default_branch", "main"),
-                "description": r.get("description", "")
-            } for r in repos
+                "description": r.get("description", ""),
+            }
+            for r in repos
         ]
 
     with open(".master-map.json", "w") as f:
         json.dump(master_map, f, indent=4)
     print("Master Map created successfully!")
     return master_map
+
 
 def sync_repos(master_map):
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -79,16 +82,28 @@ def sync_repos(master_map):
                 # Pull if exists
                 print(f"  Repo exists, pulling latest changes...")
                 try:
-                    subprocess.run(["git", "pull"], cwd=repo_dir, check=True, capture_output=True, text=True)
+                    subprocess.run(
+                        ["git", "pull"],
+                        cwd=repo_dir,
+                        check=True,
+                        capture_output=True,
+                        text=True,
+                    )
                 except subprocess.CalledProcessError as e:
                     print(f"  Error pulling {repo['name']}: {e.stderr}")
             else:
                 # Clone if missing
                 print(f"  Cloning repo...")
                 try:
-                    subprocess.run(["git", "clone", repo_url, repo_dir], check=True, capture_output=True, text=True)
+                    subprocess.run(
+                        ["git", "clone", repo_url, repo_dir],
+                        check=True,
+                        capture_output=True,
+                        text=True,
+                    )
                 except subprocess.CalledProcessError as e:
                     print(f"  Error cloning {repo['name']}: {e.stderr}")
+
 
 if __name__ == "__main__":
     # Change to the script's directory so .env and .master-map.json are found there
