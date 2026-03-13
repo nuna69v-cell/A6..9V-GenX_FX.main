@@ -119,3 +119,5 @@ jules login
 - `exness-docker/SETUP-STATUS.md` - This file
 
 - 🔄 Reviewed and prepared for initialization.
+
+> Security: Environment credentials migrated to .env. Docker Compose now manages secret injection. Hardcoded tokens have been purged from the Python source.
