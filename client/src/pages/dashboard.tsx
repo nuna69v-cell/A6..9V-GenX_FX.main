@@ -3,6 +3,7 @@ import { ConfigForm } from "@/components/config-form";
 import { StatusCard } from "@/components/status-card";
 import { ActivityChart } from "@/components/activity-chart";
 import { BrokerAccounts } from "@/components/broker-accounts";
+import { BigoLiveRoom } from "@/components/BigoLiveRoom";
 import { motion } from "framer-motion";
 
 export default function Dashboard() {
@@ -67,6 +68,7 @@ export default function Dashboard() {
 
           {/* Right column - Status + Brokers */}
           <motion.div variants={itemVariants} className="space-y-6">
+            <BigoLiveRoom />
             <StatusCard />
             <BrokerAccounts />
           </motion.div>
