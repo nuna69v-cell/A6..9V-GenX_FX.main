@@ -1,4 +1,5 @@
 import os
+
 from utils import tail_file  # Information from our shared utility
 
 # 1. Configuration Information
