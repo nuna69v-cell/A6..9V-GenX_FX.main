@@ -96,3 +96,5 @@ README.md
 **/data/*.xlsx
 **/signal_output
 **/logs
+forexconnect_env_37/
+.venv/
