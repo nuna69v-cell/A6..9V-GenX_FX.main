@@ -9,6 +9,7 @@ from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
+import talib
 
 # Add utils to path
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -117,8 +118,8 @@ class TechnicalFeatureEngine:
 
         for period in periods:
             if len(df) >= period:
-                df[f"sma_{period}"] = df["Close"].rolling(window=period).mean()
-                df[f"ema_{period}"] = df["Close"].ewm(span=period).mean()
+                df[f"sma_{period}"] = talib.SMA(df["Close"].values, timeperiod=period)
+                df[f"ema_{period}"] = talib.EMA(df["Close"].values, timeperiod=period)
                 df[f"price_vs_sma_{period}"] = (
                     (df["Close"] - df[f"sma_{period}"]) / df[f"sma_{period}"] * 100
                 )
@@ -145,29 +146,29 @@ class TechnicalFeatureEngine:
         """
         try:
             # RSI
-            df["rsi"] = self.tech_indicators.rsi(df["Close"])
+            df["rsi"] = talib.RSI(df["Close"].values)
 
             # MACD
-            macd_line, macd_signal, macd_histogram = self.tech_indicators.macd(
-                df["Close"]
-            )
+            macd_line, macd_signal, macd_histogram = talib.MACD(df["Close"].values)
             df["macd"] = macd_line
             df["macd_signal"] = macd_signal
             df["macd_histogram"] = macd_histogram
 
             # Stochastic
-            df["stoch_k"], df["stoch_d"] = self.tech_indicators.stochastic(
-                df["High"], df["Low"], df["Close"]
+            df["stoch_k"], df["stoch_d"] = talib.STOCH(
+                df["High"].values, df["Low"].values, df["Close"].values
             )
 
             # ROC (Rate of Change)
             for period in [5, 10, 20]:
                 if len(df) >= period:
-                    df[f"roc_{period}"] = df["Close"].pct_change(periods=period) * 100
+                    df[f"roc_{period}"] = talib.ROC(
+                        df["Close"].values, timeperiod=period
+                    )
 
             # Williams %R
-            df["williams_r"] = self.tech_indicators.williams_r(
-                df["High"], df["Low"], df["Close"]
+            df["williams_r"] = talib.WILLR(
+                df["High"].values, df["Low"].values, df["Close"].values
             )
 
         except Exception as e:
@@ -187,9 +188,7 @@ class TechnicalFeatureEngine:
         """
         try:
             # Bollinger Bands
-            bb_upper, bb_middle, bb_lower = self.tech_indicators.bollinger_bands(
-                df["Close"]
-            )
+            bb_upper, bb_middle, bb_lower = talib.BBANDS(df["Close"].values)
             df["bb_upper"] = bb_upper
             df["bb_middle"] = bb_middle
             df["bb_lower"] = bb_lower
@@ -197,14 +196,16 @@ class TechnicalFeatureEngine:
             df["bb_position"] = (df["Close"] - bb_lower) / (bb_upper - bb_lower) * 100
 
             # ATR
-            df["atr"] = self.tech_indicators.atr(df["High"], df["Low"], df["Close"])
+            df["atr"] = talib.ATR(
+                df["High"].values, df["Low"].values, df["Close"].values
+            )
             df["atr_pct"] = df["atr"] / df["Close"] * 100
 
             # Price volatility
             for period in [5, 10, 20]:
                 if len(df) >= period:
-                    df[f"volatility_{period}"] = (
-                        df["Close"].rolling(window=period).std()
+                    df[f"volatility_{period}"] = talib.STDDEV(
+                        df["Close"].values, timeperiod=period, nbdev=1
                     )
                     df[f"volatility_pct_{period}"] = (
                         df[f"volatility_{period}"] / df["Close"] * 100
@@ -229,8 +230,8 @@ class TechnicalFeatureEngine:
             # Volume moving averages
             for period in [5, 10, 20]:
                 if len(df) >= period:
-                    df[f"volume_ma_{period}"] = (
-                        df["Volume"].rolling(window=period).mean()
+                    df[f"volume_ma_{period}"] = talib.SMA(
+                        df["Volume"].values, timeperiod=period
                     )
                     df[f"volume_ratio_{period}"] = (
                         df["Volume"] / df[f"volume_ma_{period}"]
