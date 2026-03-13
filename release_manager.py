@@ -1,8 +1,9 @@
 import os
 import subprocess
 import time
-import pandas as pd
 from datetime import datetime
+
+import pandas as pd
 
 # --- Configuration via Environment Variables ---
 LOG_FILE = "sync.log"
