@@ -1,20 +1,30 @@
-import streamlit as st
-import subprocess
 import json
+import subprocess
+
+import streamlit as st
 
 st.set_page_config(page_title="Hot Melting Iron Dashboard", layout="wide")
 
 st.title("🔥 Hot Melting Iron: AWS & Forgejo Monitor")
 st.markdown("Real-time monitoring of your continuous deployment environment.")
 
+
 # Function to check AWS CloudFormation stack status
 def get_aws_stack_status(stack_name="HotIronInfrastructure"):
     try:
         # Use AWS CLI to get stack status, returning JSON
         result = subprocess.run(
-            ["aws", "cloudformation", "describe-stacks", "--stack-name", stack_name, "--output", "json"],
+            [
+                "aws",
+                "cloudformation",
+                "describe-stacks",
+                "--stack-name",
+                stack_name,
+                "--output",
+                "json",
+            ],
             capture_output=True,
-            text=True
+            text=True,
         )
         if result.returncode == 0:
             data = json.loads(result.stdout)
@@ -23,13 +33,17 @@ def get_aws_stack_status(stack_name="HotIronInfrastructure"):
             return "UNKNOWN"
         else:
             # Check if it's a credentials error vs stack not found
-            if "NoCredentialsError" in result.stderr or "Unable to locate credentials" in result.stderr:
+            if (
+                "NoCredentialsError" in result.stderr
+                or "Unable to locate credentials" in result.stderr
+            ):
                 return "AUTH_REQUIRED"
             elif "does not exist" in result.stderr:
                 return "NOT_DEPLOYED"
             return f"ERROR: {result.stderr.strip()}"
     except Exception as e:
         return f"EXCEPTION: {str(e)}"
+
 
 # Layout
 col1, col2 = st.columns(2)
@@ -56,7 +70,9 @@ with col1:
 
 with col2:
     st.subheader("🛠️ Local System Health")
-    st.write("Use this dashboard to monitor the status of your Git sync, local scripts, and the AWS Free Tier.")
+    st.write(
+        "Use this dashboard to monitor the status of your Git sync, local scripts, and the AWS Free Tier."
+    )
     st.markdown("""
     **Next Steps for MQL5 Bridge:**
     1. Ensure `MeltSignalExporter.mq5` is placed in MT5 `Experts/` directory.
