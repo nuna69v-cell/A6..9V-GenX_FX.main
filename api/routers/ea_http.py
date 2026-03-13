@@ -6,7 +6,7 @@ Provides endpoints for EA registration, signal retrieval, heartbeat, and trade r
 import hashlib
 import logging
 from collections import deque
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Deque, Dict, List
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -21,7 +21,7 @@ router = APIRouter(prefix="", tags=["ea_http"])
 # In-memory storage for EA connections and signals
 # In production, this should use Redis or a database
 ea_connections: Dict[str, Dict[str, Any]] = {}
-pending_signals: Deque[Dict[str, Any]] = deque()
+pending_signals: List[Dict[str, Any]] = []
 trade_results: Deque[Dict[str, Any]] = deque(maxlen=10000)
 
 
@@ -107,7 +107,7 @@ async def ping():
     return {
         "status": "ok",
         "message": "GenX AI Server is running",
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
 
@@ -127,13 +127,13 @@ async def get_signal(api_key: str = Depends(validate_ea_api_key)):
         return {"type": "NO_SIGNAL", "message": "No pending signals"}
 
     # Get the oldest signal (FIFO)
-    signal = pending_signals.popleft()
+    signal = pending_signals.pop(0)
     logger.info(f"Signal retrieved by authenticated EA: {signal}")
 
     return {
         "type": "SIGNAL",
         "data": signal,
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
 
@@ -162,7 +162,7 @@ async def ea_info(request: MessageRequest, api_key: str = Depends(validate_ea_ap
         # Store EA connection info
         ea_connections[ea_id] = {
             "info": ea_data,
-            "last_seen": datetime.utcnow(),
+            "last_seen": datetime.now(timezone.utc),
             "status": "connected",
             "api_key_hash": api_key_hash,  # Store full hash for secure audit trail
         }
@@ -209,7 +209,7 @@ async def heartbeat(
         if ea_id not in ea_connections:
             ea_connections[ea_id] = {"status": "connected"}
 
-        ea_connections[ea_id]["last_seen"] = datetime.utcnow()
+        ea_connections[ea_id]["last_seen"] = datetime.now(timezone.utc)
         ea_connections[ea_id]["heartbeat"] = heartbeat_data
 
         logger.debug(
@@ -220,7 +220,7 @@ async def heartbeat(
             "status": "success",
             "message": "Heartbeat acknowledged",
             "ea_id": ea_id,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
         }
     except Exception as e:
         logger.error(f"Error processing heartbeat: {e}")
@@ -255,7 +255,7 @@ async def account_status(
             ea_connections[ea_id] = {"status": "connected"}
 
         ea_connections[ea_id]["account_status"] = status_data
-        ea_connections[ea_id]["last_status_update"] = datetime.utcnow()
+        ea_connections[ea_id]["last_status_update"] = datetime.now(timezone.utc)
 
         logger.info(
             f"Account status received from authenticated EA {ea_id} - Balance: {status_data.get('balance')}, "
@@ -267,7 +267,7 @@ async def account_status(
             "status": "success",
             "message": "Account status received",
             "ea_id": ea_id,
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
         }
     except Exception as e:
         logger.error(f"Error processing account status: {e}")
@@ -296,7 +296,7 @@ async def trade_result(
 
         # Store trade result
         trade_results.append(
-            {**result_data, "received_at": datetime.utcnow().isoformat()}
+            {**result_data, "received_at": datetime.now(timezone.utc).isoformat()}
         )
 
         if result_data.get("success"):
@@ -315,7 +315,7 @@ async def trade_result(
         return {
             "status": "success",
             "message": "Trade result received",
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
         }
     except Exception as e:
         logger.error(f"Error processing trade result: {e}")
@@ -339,7 +339,7 @@ async def get_ea_status(api_key: str = Depends(validate_ea_api_key)):
         "eas": ea_connections,
         "pending_signals": len(pending_signals),
         "trade_results_count": len(trade_results),
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
 
@@ -401,5 +401,5 @@ async def get_trade_results(
         # Convert deque to list for slicing
         "results": list(trade_results)[-limit:],
         "total_count": len(trade_results),
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }

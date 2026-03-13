@@ -2,7 +2,7 @@
 Tests for EA HTTP communication endpoints
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest.mock import patch
 
 import pytest
@@ -80,7 +80,7 @@ def test_ea_info_registration(client, auth_headers):
             "timeframe": "H1",
             "magic_number": 12345,
         },
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
     response = client.post("/ea_info", json=ea_data, headers=auth_headers)
@@ -103,7 +103,7 @@ def test_heartbeat(client, auth_headers):
             "account": 12345,
             "magic_number": 12345,
         },
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
     response = client.post("/heartbeat", json=heartbeat_data, headers=auth_headers)
@@ -128,7 +128,7 @@ def test_account_status(client, auth_headers):
             "account": 12345,
             "magic_number": 12345,
         },
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
     response = client.post("/account_status", json=status_data, headers=auth_headers)
@@ -151,7 +151,7 @@ def test_trade_result_success(client, auth_headers):
             "execution_price": 1.1000,
             "slippage": 0.0002,
         },
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
     response = client.post("/trade_result", json=result_data, headers=auth_headers)
@@ -173,7 +173,7 @@ def test_trade_result_failure(client, auth_headers):
             "execution_price": 0.0,
             "slippage": 0.0,
         },
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
     response = client.post("/trade_result", json=result_data, headers=auth_headers)
@@ -290,7 +290,7 @@ def test_ea_identification_consistency(client, auth_headers):
             "timeframe": "H1",
             "magic_number": 67890,
         },
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
     response = client.post("/ea_info", json=ea_info, headers=auth_headers)
@@ -307,7 +307,7 @@ def test_ea_identification_consistency(client, auth_headers):
             "account": 12345,
             "magic_number": 67890,
         },
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
     response = client.post("/heartbeat", json=heartbeat, headers=auth_headers)
