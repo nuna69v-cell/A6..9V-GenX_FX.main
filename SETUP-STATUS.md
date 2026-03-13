@@ -119,3 +119,7 @@ jules login
 - `exness-docker/SETUP-STATUS.md` - This file
 
 - 🔄 Reviewed and prepared for initialization.
+
+## Recent Updates (Hot Melting Iron & CI)
+> **Code Quality:** CI now enforces `isort --profile black`. Local pre-commit hooks are recommended to avoid pipeline bounces.
+> **Infrastructure:** Forgejo CLI integrated for repository management; `logs_repo` submodule successfully deprecated in favor of direct Git automation.
