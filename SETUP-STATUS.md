@@ -128,3 +128,5 @@ jules login
 2. Start the Streamlit server: `streamlit run monitor.py`
 3. If simulating a sync, run: `python simulate_melt.py`
 4. For live deployment, run: `python master_sync.py`
+
+> Monitoring Instructions: To view real-time metrics, ensure simulate_melt.py is active. Run streamlit run monitor.py to access the web interface at localhost:8501. Critical thresholds are set at 180°C.

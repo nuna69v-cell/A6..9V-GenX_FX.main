@@ -5,10 +5,12 @@ import os
 
 LOG_FILE = "sync.log"
 
+
 def initialize_log():
     if not os.path.exists(LOG_FILE):
         with open(LOG_FILE, "w") as f:
             f.write("timestamp,temp\n")
+
 
 def log_temp(temp):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -17,6 +19,7 @@ def log_temp(temp):
         f.write(log_line)
         f.flush()
     print(f"Logged: {log_line.strip()}")
+
 
 def run_sync():
     initialize_log()
