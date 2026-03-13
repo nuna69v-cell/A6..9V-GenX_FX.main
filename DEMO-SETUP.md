@@ -5,8 +5,8 @@
 ## Demo Account Configuration
 
 **Account Details:**
-- Account Number: `279410452`
-- Server: `Exness-MT5Trial8`
+- Account Number: `169926536`
+- Server: `Exness-MT5Real24`
 - Password: `Leng3A69V[@Una]`
 - Type: Demo/Testing Account
 
@@ -67,15 +67,15 @@
 1. Open MetaTrader 5
 2. Go to **File → Login to Trade Account**
 3. Enter credentials:
-   - **Login**: `279410452`
+   - **Login**: `169926536`
    - **Password**: `Leng3A69V[@Una]`
-   - **Server**: `Exness-MT5Trial8`
+   - **Server**: `Exness-MT5Real24`
 4. Click **Login**
 
 ### 2. Verify Account Connection
 
 - Check account balance (should show demo balance)
-- Verify server shows: `Exness-MT5Trial8`
+- Verify server shows: `Exness-MT5Real24`
 - Check account type shows: **Demo**
 
 ### 3. Connect EA to Docker Bridge
@@ -120,7 +120,7 @@ docker-compose up -d
 
 - [ ] MT5 connected to demo account
 - [ ] Account shows demo balance
-- [ ] Server: Exness-MT5Trial8
+- [ ] Server: Exness-MT5Real24
 - [ ] Docker services running
 - [ ] Bridge API accessible (port 8000)
 - [ ] EA attached and connected to bridge (port 5555)
@@ -139,7 +139,7 @@ docker-compose up -d
 ## Troubleshooting
 
 ### Account Login Failed
-- Verify server name: `Exness-MT5Trial8` (case-sensitive)
+- Verify server name: `Exness-MT5Real24` (case-sensitive)
 - Check password: `Leng3A69V[@Una]` (includes special characters)
 - Ensure MT5 is updated to latest version
 

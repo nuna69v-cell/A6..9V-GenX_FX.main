@@ -24,7 +24,7 @@ REM Set environment variables (replace with your actual keys)
 set GEMINI_API_KEY=your_gemini_api_key_here
 set EXNESS_LOGIN=your_exness_login
 set EXNESS_PASSWORD=your_exness_password
-set EXNESS_SERVER=Exness-MT5Trial8
+set EXNESS_SERVER=Exness-MT5Real24
 
 REM Create logs directory
 if not exist "logs" mkdir logs

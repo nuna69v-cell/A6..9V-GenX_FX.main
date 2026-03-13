@@ -57,7 +57,7 @@ class Settings(BaseSettings):
         "default_password", description="Exness account password"
     )
     EXNESS_SERVER: str = Field(
-        "Exness-MT5Trial8", description="Exness server (e.g., Exness-MT5Trial8)"
+        "Exness-MT5Real24", description="Exness server (e.g., Exness-MT5Real24)"
     )
     EXNESS_ACCOUNT_TYPE: Literal["demo", "live"] = "demo"
     EXNESS_TERMINAL: Literal["MT4", "MT5"] = "MT5"

@@ -172,8 +172,8 @@ if ($allGood) {
 
 Write-Host ""
 Write-Host "Demo Account:" -ForegroundColor Cyan
-Write-Host "  Account: 279410452" -ForegroundColor White
-Write-Host "  Server: Exness-MT5Trial8" -ForegroundColor White
+Write-Host "  Account: 169926536" -ForegroundColor White
+Write-Host "  Server: Exness-MT5Real24" -ForegroundColor White
 Write-Host "  Symbols: 20 configured" -ForegroundColor White
 Write-Host ""
 

@@ -14,7 +14,7 @@ Credentials:
 
 MT5 Credentials:
 - Login: 279023502
-- Server: Exness-MT5Trial8
+- Server: Exness-MT5Real24
 - Password: Leng12345@#simple_final_setup.sh1
 
 Useful Commands:

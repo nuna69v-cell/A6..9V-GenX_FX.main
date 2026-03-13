@@ -49,7 +49,7 @@ echo [4/8] Setting up environment variables...
 setx GEMINI_API_KEY "your_gemini_api_key_here" /M
 setx EXNESS_LOGIN "your_exness_login" /M
 setx EXNESS_PASSWORD "your_exness_password" /M
-setx EXNESS_SERVER "Exness-MT5Trial8" /M
+setx EXNESS_SERVER "Exness-MT5Real24" /M
 setx SECRET_KEY "your_secret_key_here" /M
 
 echo [5/8] Configuring proxy settings (if needed)...

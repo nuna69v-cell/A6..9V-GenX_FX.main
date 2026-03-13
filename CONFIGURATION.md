@@ -165,8 +165,8 @@ Broker configuration:
     {
       "name": "EXNESS_DEMO",
       "type": "demo",
-      "server": "Exness-MT5Trial8",
-      "account_id": "279410452",
+      "server": "Exness-MT5Real24",
+      "account_id": "169926536",
       "enabled": true
     }
   ],

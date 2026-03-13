@@ -108,8 +108,8 @@ Write-Host "✓ Quickstart Complete!" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
 Write-Host "Demo Account Ready:" -ForegroundColor Cyan
-Write-Host "  Account: 279410452" -ForegroundColor White
-Write-Host "  Server: Exness-MT5Trial8" -ForegroundColor White
+Write-Host "  Account: 169926536" -ForegroundColor White
+Write-Host "  Server: Exness-MT5Real24" -ForegroundColor White
 Write-Host "  Password: Leng3A69V[@Una]" -ForegroundColor White
 Write-Host ""
 Write-Host "Services Available:" -ForegroundColor Cyan
@@ -121,7 +121,7 @@ Write-Host "  • Redis: localhost:6379" -ForegroundColor Green
 Write-Host "  • InfluxDB: http://localhost:8086" -ForegroundColor Green
 Write-Host ""
 Write-Host "Next Steps:" -ForegroundColor Yellow
-Write-Host "  1. Connect MT5 to demo account (279410452)" -ForegroundColor White
+Write-Host "  1. Connect MT5 to demo account (169926536)" -ForegroundColor White
 Write-Host "  2. Attach EA to chart with BridgePort: 5555" -ForegroundColor White
 Write-Host "  3. Select from 20 configured symbols" -ForegroundColor White
 Write-Host ""

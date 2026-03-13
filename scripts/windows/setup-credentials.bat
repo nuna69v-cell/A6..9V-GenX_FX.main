@@ -34,7 +34,7 @@ echo # API Keys and Secrets > "D:\GenX_FX\credentials\api_keys.env"
 echo GEMINI_API_KEY=your_gemini_api_key_here >> "D:\GenX_FX\credentials\api_keys.env"
 echo EXNESS_LOGIN=your_exness_login >> "D:\GenX_FX\credentials\api_keys.env"
 echo EXNESS_PASSWORD=your_exness_password >> "D:\GenX_FX\credentials\api_keys.env"
-echo EXNESS_SERVER=Exness-MT5Trial8 >> "D:\GenX_FX\credentials\api_keys.env"
+echo EXNESS_SERVER=Exness-MT5Real24 >> "D:\GenX_FX\credentials\api_keys.env"
 echo SECRET_KEY=your_secret_key_here >> "D:\GenX_FX\credentials\api_keys.env"
 
 echo [4/4] Creating backup of credentials...

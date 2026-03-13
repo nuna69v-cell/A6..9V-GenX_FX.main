@@ -54,7 +54,7 @@ The GenX-FX Trading Platform has been successfully deployed and is now running i
 
 ### Environment Variables
 - **MT5 Login:** 279023502
-- **MT5 Server:** Exness-MT5Trial8
+- **MT5 Server:** Exness-MT5Real24
 - **Database:** SQLite (genxdb_fx.db)
 - **API Port:** 8080
 

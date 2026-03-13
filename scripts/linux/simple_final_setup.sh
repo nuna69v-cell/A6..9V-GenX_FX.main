@@ -20,7 +20,7 @@ GITHUB_REPOSITORY="https://github.com/genxdbxfx1-ctrl/GenX_db_FX-.git"
 
 # === App Credentials ===
 MT5_LOGIN="279023502"
-MT5_SERVER="Exness-MT5Trial8"
+MT5_SERVER="Exness-MT5Real24"
 # Do not hardcode credentials in git; provide via environment variable.
 MT5_PASSWORD="${MT5_PASSWORD:-}"
 
@@ -415,7 +415,7 @@ async def get_users():
 async def get_mt5_info():
     return {
         "login": "279023502",
-        "server": "Exness-MT5Trial8",
+        "server": "Exness-MT5Real24",
         "status": "configured"
     }
 

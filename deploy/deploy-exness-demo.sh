@@ -462,7 +462,7 @@ display_final_info() {
     echo ""
     echo -e "${BLUE}Demo Account Details:${NC}"
     echo -e "Login: 279023502"
-    echo -e "Server: Exness-MT5Trial8"
+    echo -e "Server: Exness-MT5Real24"
     echo -e "Password: <set via MT5_PASSWORD env var>"
     echo -e "Symbol: XAUUSD"
     echo -e "Timeframe: M15"

@@ -10,7 +10,7 @@ echo "Using your provided credentials:"
 echo "- GitHub: genxdbxfx1"
 echo "- Docker Hub: genxdbx/genxdbxfx1"
 echo "- MT5 Login: 279023502"
-echo "- MT5 Server: Exness-MT5Trial8"
+echo "- MT5 Server: Exness-MT5Real24"
 
 # Run the container setup script
 ./container_setup.sh

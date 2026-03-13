@@ -25,8 +25,8 @@ foreach ($file in $configFiles) {
 
 Write-Host ""
 Write-Host "Demo Account Details:" -ForegroundColor Cyan
-Write-Host "  Account: 279410452" -ForegroundColor White
-Write-Host "  Server: Exness-MT5Trial8" -ForegroundColor White
+Write-Host "  Account: 169926536" -ForegroundColor White
+Write-Host "  Server: Exness-MT5Real24" -ForegroundColor White
 Write-Host "  Type: Demo/Testing" -ForegroundColor White
 Write-Host ""
 
@@ -70,8 +70,8 @@ Write-Host "Next Steps:" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "1. Connect MT5 to Demo Account:" -ForegroundColor Yellow
-Write-Host "   - Login: 279410452" -ForegroundColor White
-Write-Host "   - Server: Exness-MT5Trial8" -ForegroundColor White
+Write-Host "   - Login: 169926536" -ForegroundColor White
+Write-Host "   - Server: Exness-MT5Real24" -ForegroundColor White
 Write-Host "   - Password: Leng3A69V[@Una]" -ForegroundColor White
 Write-Host ""
 Write-Host "2. Attach EA to chart:" -ForegroundColor Yellow

@@ -74,7 +74,7 @@ The repository should contain:
 1. Pull latest code: `git pull origin main`
 2. Compile EAs in MetaEditor
 3. Attach EA to chart with bridge configuration
-4. Connect to EXNESS demo account (279410452)
+4. Connect to EXNESS demo account (169926536)
 
 ---
 
