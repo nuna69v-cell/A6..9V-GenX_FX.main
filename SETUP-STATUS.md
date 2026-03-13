@@ -119,3 +119,12 @@ jules login
 - `exness-docker/SETUP-STATUS.md` - This file
 
 - 🔄 Reviewed and prepared for initialization.
+
+### Hot Melting Iron Monitor
+**Status**: Python Dashboard implemented
+
+**To monitor sync processes:**
+1. Install Python dependencies: `pip install streamlit pandas`
+2. Start the Streamlit server: `streamlit run monitor.py`
+3. If simulating a sync, run: `python simulate_melt.py`
+4. For live deployment, run: `python master_sync.py`
