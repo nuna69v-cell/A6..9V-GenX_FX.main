@@ -7,7 +7,7 @@
 **Account Details:**
 - Account Number: `169926536`
 - Server: `Exness-MT5Real24`
-- Password: `Leng3A69V[@Una]`
+- Password: `Lengkundee0&0X`
 - Type: Demo/Testing Account
 
 ## Trading Symbols Configured
@@ -68,7 +68,7 @@
 2. Go to **File → Login to Trade Account**
 3. Enter credentials:
    - **Login**: `169926536`
-   - **Password**: `Leng3A69V[@Una]`
+   - **Password**: `Lengkundee0&0X`
    - **Server**: `Exness-MT5Real24`
 4. Click **Login**
 
@@ -140,7 +140,7 @@ docker-compose up -d
 
 ### Account Login Failed
 - Verify server name: `Exness-MT5Real24` (case-sensitive)
-- Check password: `Leng3A69V[@Una]` (includes special characters)
+- Check password: `Lengkundee0&0X` (includes special characters)
 - Ensure MT5 is updated to latest version
 
 ### Symbol Not Found

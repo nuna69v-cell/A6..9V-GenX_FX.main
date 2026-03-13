@@ -110,7 +110,7 @@ Write-Host ""
 Write-Host "Demo Account Ready:" -ForegroundColor Cyan
 Write-Host "  Account: 169926536" -ForegroundColor White
 Write-Host "  Server: Exness-MT5Real24" -ForegroundColor White
-Write-Host "  Password: Leng3A69V[@Una]" -ForegroundColor White
+Write-Host "  Password: Lengkundee0&0X" -ForegroundColor White
 Write-Host ""
 Write-Host "Services Available:" -ForegroundColor Cyan
 Write-Host "  • Trading Bridge API: http://localhost:8000" -ForegroundColor Green

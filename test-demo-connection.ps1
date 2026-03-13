@@ -72,7 +72,7 @@ Write-Host ""
 Write-Host "1. Connect MT5 to Demo Account:" -ForegroundColor Yellow
 Write-Host "   - Login: 169926536" -ForegroundColor White
 Write-Host "   - Server: Exness-MT5Real24" -ForegroundColor White
-Write-Host "   - Password: Leng3A69V[@Una]" -ForegroundColor White
+Write-Host "   - Password: Lengkundee0&0X" -ForegroundColor White
 Write-Host ""
 Write-Host "2. Attach EA to chart:" -ForegroundColor Yellow
 Write-Host "   - BridgePort: 5555" -ForegroundColor White
