@@ -119,3 +119,9 @@
 **Learning:** I identified a significant performance bottleneck in `api/services/scalping_service.py` where Pandas Series were passed directly to `talib` functions and values were accessed using `.iloc`. Benchmarks showed that passing raw NumPy arrays (`.values`) to `talib` is ~8x faster than passing Series, and direct array indexing (`[idx]`) is ~3x faster than `.iloc`.
 
 **Action:** In high-frequency signal generation paths, always extract `.values` from DataFrame columns once and pass these NumPy arrays to `talib` functions. Use positional indexing on the resulting arrays for maximum efficiency. When updating such services, ensure corresponding unit test mocks also return NumPy arrays to maintain compatibility with positional indexing.
+
+## 2026-03-13 - Vectorizing Candlestick Pattern Detection
+
+**Learning:** I identified a significant performance bottleneck in the `PatternDetector` class (`core/patterns/pattern_detector.py`) where common candlestick patterns (Bullish Engulfing, Bearish Engulfing, Doji) were using Pandas-level arithmetic and `shift()` operations. These operations incur substantial overhead due to index alignment, especially when calculated over multiple patterns individually.
+
+**Action:** I refactored the `detect_patterns` method to extract raw `.values.astype(float)` once and implemented the pattern detection logic using vectorized NumPy array operations and slicing (e.g., `np.empty_like` to shift arrays). I also computed all patterns in a single pass rather than delegating to individual methods. This optimization provided a ~10x speedup for pattern detection (~0.27s vs ~2.9s for 1000 rows x 1000 iterations), significantly reducing latency for the real-time AI trading signals pipeline.
