@@ -77,8 +77,12 @@ class PatternDetector:
         is_doji = body_size < (candle_range * 0.1)
 
         patterns = {
-            "bullish_engulfing": pd.Series(bullish_engulfing.astype(int), index=data.index),
-            "bearish_engulfing": pd.Series(bearish_engulfing.astype(int), index=data.index),
+            "bullish_engulfing": pd.Series(
+                bullish_engulfing.astype(int), index=data.index
+            ),
+            "bearish_engulfing": pd.Series(
+                bearish_engulfing.astype(int), index=data.index
+            ),
             "doji": pd.Series(is_doji.astype(int), index=data.index),
         }
         return patterns
