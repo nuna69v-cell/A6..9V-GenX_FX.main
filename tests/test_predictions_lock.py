@@ -36,10 +36,7 @@ async def test_get_model_metrics_cache_hit():
             }
         )
 
-        response = client.get(
-            "/api/v1/predictions/model/metrics",
-            headers={"Authorization": "Bearer test_token"},
-        )
+        response = client.get("/api/v1/predictions/model/metrics")
 
         assert response.status_code == 200
         assert response.json()["accuracy"] == 0.99
@@ -75,10 +72,7 @@ async def test_get_model_metrics_lock_acquired():
             }
         )
 
-        response = client.get(
-            "/api/v1/predictions/model/metrics",
-            headers={"Authorization": "Bearer test_token"},
-        )
+        response = client.get("/api/v1/predictions/model/metrics")
 
         assert response.status_code == 200
         assert response.json()["accuracy"] == 0.88
@@ -118,10 +112,7 @@ async def test_get_model_metrics_lock_contention_immediate_success():
         ]
         mock_redis.set.return_value = False  # Lock failed
 
-        response = client.get(
-            "/api/v1/predictions/model/metrics",
-            headers={"Authorization": "Bearer test_token"},
-        )
+        response = client.get("/api/v1/predictions/model/metrics")
 
         assert response.status_code == 200
         assert response.json()["accuracy"] == 0.77
@@ -171,10 +162,7 @@ async def test_get_model_metrics_retry_loop():
             side_effect=Exception("Fallback triggered!")
         )
 
-        response = client.get(
-            "/api/v1/predictions/model/metrics",
-            headers={"Authorization": "Bearer test_token"},
-        )
+        response = client.get("/api/v1/predictions/model/metrics")
 
         # If logic is correct, it should succeed without calling ml_service
         assert response.status_code == 200
