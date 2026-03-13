@@ -127,7 +127,7 @@ async def get_signal(api_key: str = Depends(validate_ea_api_key)):
         return {"type": "NO_SIGNAL", "message": "No pending signals"}
 
     # Get the oldest signal (FIFO)
-    signal = pending_signals.pop(0)
+    signal = pending_signals.popleft()
     logger.info(f"Signal retrieved by authenticated EA: {signal}")
 
     return {
