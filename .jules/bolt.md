@@ -119,3 +119,8 @@
 **Learning:** I identified a significant performance bottleneck in `api/services/scalping_service.py` where Pandas Series were passed directly to `talib` functions and values were accessed using `.iloc`. Benchmarks showed that passing raw NumPy arrays (`.values`) to `talib` is ~8x faster than passing Series, and direct array indexing (`[idx]`) is ~3x faster than `.iloc`.
 
 **Action:** In high-frequency signal generation paths, always extract `.values` from DataFrame columns once and pass these NumPy arrays to `talib` functions. Use positional indexing on the resulting arrays for maximum efficiency. When updating such services, ensure corresponding unit test mocks also return NumPy arrays to maintain compatibility with positional indexing.
+
+## 2026-03-13 - [The Vectorization Leap]
+
+**Learning:** I confirmed that passing Pandas Series objects to high-frequency looping functions or calling native Pandas-level rolling functions (like `rolling().mean()`, `rolling().std()`, `ewm()`, `pct_change()`) introduces significant Series alignment and indexing overhead. Converting to pure C-extensions via `talib` using raw numpy arrays (`df["Close"].values`) yields massive latency drops, especially in mobile deployment environments.
+**Action:** Always prefer vectorized `talib` bindings (e.g. `talib.SMA`, `talib.STDDEV`, `talib.EMA`, `talib.ROC`) instead of native Pandas DataFrame functions. Ensure `pending_signals` (a python list) uses `.pop(0)` properly rather than `.popleft()` to avoid missing attribute exceptions when standard deque interfaces are wrongly assumed.
