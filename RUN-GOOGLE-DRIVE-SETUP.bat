@@ -6,7 +6,7 @@ echo.
 cd /d "%~dp0"
 echo Running setup script...
 echo.
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0run-google-drive-setup-auto.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0setup-google-drive-streaming.ps1"
 echo.
 echo ========================================
 echo Setup Complete
@@ -15,4 +15,3 @@ echo.
 echo Next: Open Google Drive settings and enable "Stream files" mode
 echo.
 pause
-
