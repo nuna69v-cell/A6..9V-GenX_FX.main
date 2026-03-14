@@ -51,5 +51,6 @@ jobs:
           if [[ -n $(git log -1 --pretty=format:"%s" | grep "Auto-sync repository data") ]]; then
              # Remote sync to target
              echo "Updating target repository..."
+             git remote set-url origin https://x-access-token:${{ secrets.GH_USER_TOKEN }}@github.com/nuna69v-cell/Indexing-Workflow-controller.git
              git push origin main
           fi
