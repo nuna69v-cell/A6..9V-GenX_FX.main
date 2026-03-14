@@ -1,0 +1,6 @@
+⚡ Bolt: Optimized TA-Lib calls and NaN handling in feature engineering
+
+💡 What: Extracted '.values' from 'df["close"]' to pass raw NumPy arrays directly to 'talib.RSI' and 'talib.MACD'. Replaced slow Pandas 'fillna()' calls with 'np.nan_to_num()'. Also fixed a bug in 'api/routers/ea_http.py' tests.
+🎯 Why: Passing Pandas Series to C-extensions like TA-Lib triggers implicit conversion overhead. Further invoking Pandas series '.fillna()' creates more index alignment overhead. Bypassing Series processing altogether is critical for latency-sensitive tasks like feature engineering.
+📊 Impact: Reduces DataFrame processing overhead when computing chart patterns for the CNN model.
+🔬 Measurement: Verified functionality by running 'python3 -m pytest tests/test_feature_engineer_optimized.py'.
