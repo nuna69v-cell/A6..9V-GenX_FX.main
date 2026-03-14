@@ -1,0 +1,55 @@
+name: Auto-Sync to Indexing-Workflow-controller
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  sync-to-controller:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Checkout Target Repository
+        uses: actions/checkout@v4
+        with:
+          repository: nuna69v-cell/Indexing-Workflow-controller
+          path: target_repo
+          token: ${{ secrets.GH_USER_TOKEN }}
+
+      - name: Sync Files
+        run: |
+          # Copy source files into the target repository (excluding git and this workflow itself)
+          rsync -a --exclude='.git/' --exclude='target_repo/' --exclude='.github/workflows/auto-sync-controller.yml' ./ target_repo/
+
+          cd target_repo
+
+          # Commit if changes exist
+          if [[ -n $(git status --porcelain) ]]; then
+            git add .
+            git commit -m "Auto-sync repository data [skip ci]"
+          else
+            echo "No changes to sync."
+          fi
+
+      - name: Push to Target Repository
+        run: |
+          cd target_repo
+          if [[ -n $(git log -1 --pretty=format:"%s" | grep "Auto-sync repository data") ]]; then
+             # Remote sync to target
+             echo "Updating target repository..."
+             git push origin main
+          fi
