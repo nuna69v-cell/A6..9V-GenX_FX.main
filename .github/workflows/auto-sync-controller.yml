@@ -28,7 +28,7 @@ jobs:
         with:
           repository: nuna69v-cell/Indexing-Workflow-controller
           path: target_repo
-          token: ${{ secrets.GH_USER_TOKEN }}
+          token: ${{ secrets.GH_USER_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Sync Files
         run: |
