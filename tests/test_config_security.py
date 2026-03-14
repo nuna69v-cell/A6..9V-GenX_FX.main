@@ -5,7 +5,7 @@ from api.config import ProductionSettings, Settings, DevelopmentSettings, get_se
 
 def test_production_settings_defaults_insecure():
     """Test that ProductionSettings raises ValueError when initialized with default values."""
-    env_vars = {"EXNESS_LOGIN": "dummy", "EXNESS_PASSWORD": "dummy"}
+    env_vars = {"EXNESS_LOGIN": "dummy_long_enough_123", "EXNESS_PASSWORD": "dummy_long_enough_123"}
     with patch.dict(os.environ, env_vars, clear=True):
         with pytest.raises(ValueError, match=".*SECRET_KEY must be changed.*"):
             ProductionSettings()
