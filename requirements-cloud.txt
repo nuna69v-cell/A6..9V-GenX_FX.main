@@ -6,13 +6,13 @@ numpy==1.26.4
 
 # Core dependencies with known wheel support
 pandas==2.0.3
-scikit-learn==1.3.0
+scikit-learn==1.8.0
 
 # Lightweight alternatives for ML
 xgboost==3.0.3
 
 # Financial data (lightweight)
-yfinance==0.2.65
+yfinance==1.2.0
 
 # Essential utilities
 requests==2.32.4
@@ -20,7 +20,7 @@ aiohttp==3.13.3
 httpx==0.26.0
 joblib==1.5.3
 python-dotenv==1.0.0
-pyyaml==6.0.1
+pyyaml==6.0.3
 
 # Web framework for health checks
 fastapi==0.116.1
@@ -33,17 +33,17 @@ loguru==0.7.2
 websockets==15.0.1
 
 # Configuration
-pydantic==2.11.7
+pydantic==2.12.5
 click==8.1.7
 
 # Async support
 aiofiles==23.2.0
 
 # Math libraries (with wheel support)
-scipy==1.16.1
+scipy==1.17.1
 
 # Monitoring
-psutil==7.0.0
+psutil==7.2.2
 
 # Web server
 gunicorn==23.0.0

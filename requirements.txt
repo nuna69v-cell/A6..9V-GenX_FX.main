@@ -4,10 +4,10 @@ requests==2.31.0
 websocket-client==1.6.4
 python-dotenv==1.0.0
 fastapi>=0.115.0
-uvicorn[standard]==0.24.0
+uvicorn[standard]==0.41.0
 pydantic>=2.10.0
 pydantic-settings>=2.4.0
-cryptography==43.0.1
+cryptography==46.0.5
 aiohttp==3.13.3
 TA-Lib==0.4.32
 sqlalchemy==2.0.23
@@ -20,4 +20,4 @@ msal==1.26.0
 joblib==1.5.3
 httpx==0.26.0
 scikit-learn>=1.5.2
-psutil==7.0.0
+psutil==7.2.2

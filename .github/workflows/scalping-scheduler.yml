@@ -1,0 +1,151 @@
+name: GenX FX Scalping Session Scheduler
+
+on:
+  schedule:
+    # Asian Open    — 00:00 UTC (07:00 ICT / Bangkok)
+    - cron: '0 0 * * *'
+    # London Open   — 07:00 UTC (14:00 ICT / Bangkok)
+    - cron: '0 7 * * *'
+    # NY/LN Overlap — 12:00 UTC (19:00 ICT / Bangkok)
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+    inputs:
+      session:
+        description: 'Session name (Asian / London / NY-LN Overlap)'
+        required: false
+        default: 'Manual'
+
+jobs:
+  trigger-scalping-session:
+    name: Start Scalping Session
+    runs-on: ubuntu-latest
+    outputs:
+      cicd_run_id: ${{ steps.get_run.outputs.run_id }}
+      cicd_conclusion: ${{ steps.wait_cicd.outputs.conclusion }}
+    steps:
+      - name: Detect session
+        id: session
+        run: |
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" = "00" ]; then SESSION="Asian Open (07:00 ICT)"
+          elif [ "$HOUR" = "07" ]; then SESSION="London Open (14:00 ICT)"
+          elif [ "$HOUR" = "12" ]; then SESSION="NY / London-NY Overlap (19:00 ICT)"
+          else SESSION="${{ github.event.inputs.session || 'Manual' }}"
+          fi
+          echo "name=$SESSION" >> $GITHUB_OUTPUT
+
+      - name: Log session start
+        run: |
+          echo "=============================================="
+          echo "  GenX FX — Scalping Session Starting"
+          echo "  Session: ${{ steps.session.outputs.name }}"
+          echo "  Time (UTC): $(date -u)"
+          echo "  Time (ICT): $(TZ='Asia/Bangkok' date)"
+          echo "=============================================="
+
+      - name: Trigger GenX FX CI/CD Pipeline
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: ci-cd.yml
+          ref: main
+          token: ${{ secrets.GH_USER_TOKEN || github.token }}
+
+      - name: Trigger Auto-Sync
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: auto-sync-controller.yml
+          ref: main
+          token: ${{ secrets.GH_USER_TOKEN || github.token }}
+        continue-on-error: true
+
+      - name: Wait for CI/CD to register
+        run: sleep 20
+
+      - name: Get latest CI/CD run ID
+        id: get_run
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_USER_TOKEN || github.token }}
+          script: |
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'ci-cd.yml',
+              per_page: 1,
+            });
+            const latest = runs.data.workflow_runs[0];
+            if (latest) {
+              core.setOutput('run_id', latest.id);
+              core.notice(`Tracking CI/CD run #${latest.id}: ${latest.html_url}`);
+            }
+
+      - name: Wait for CI/CD pipeline to complete
+        id: wait_cicd
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_USER_TOKEN || github.token }}
+          script: |
+            const runId = ${{ steps.get_run.outputs.run_id || 0 }};
+            if (!runId) { core.setOutput('conclusion', 'skipped'); return; }
+            const maxWait = 30;
+            for (let i = 0; i < maxWait; i++) {
+              const { data: run } = await github.rest.actions.getWorkflowRun({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: runId,
+              });
+              if (run.status === 'completed') {
+                core.notice(`CI/CD completed: ${run.conclusion}`);
+                core.setOutput('conclusion', run.conclusion);
+                return;
+              }
+              core.info(`CI/CD still running (${i+1}/${maxWait})... waiting 60s`);
+              await new Promise(r => setTimeout(r, 60000));
+            }
+            core.setOutput('conclusion', 'timeout');
+
+  deploy-docker:
+    name: Docker VPS Deployment
+    runs-on: ubuntu-latest
+    needs: trigger-scalping-session
+    if: needs.trigger-scalping-session.outputs.cicd_conclusion == 'success'
+    steps:
+      - name: Log Docker deployment start
+        run: |
+          echo "=============================================="
+          echo "  CI/CD passed — Starting Docker VPS Deploy"
+          echo "  Time (UTC): $(date -u)"
+          echo "=============================================="
+
+      - name: Trigger Docker VPS deployment
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: deploy-vps.yml
+          ref: main
+          token: ${{ secrets.GH_USER_TOKEN || github.token }}
+
+      - name: Deployment dispatched
+        run: |
+          echo "Docker deployment triggered."
+          echo "Monitor: https://github.com/nuna69v-cell/A6..9V-GenX_FX.main/actions/workflows/deploy-vps.yml"
+
+  session-summary:
+    name: Session Summary
+    runs-on: ubuntu-latest
+    needs: [trigger-scalping-session, deploy-docker]
+    if: always()
+    steps:
+      - name: Print summary
+        run: |
+          echo "=============================================="
+          echo "  GenX FX Session Complete"
+          echo "  CI/CD:         ${{ needs.trigger-scalping-session.outputs.cicd_conclusion }}"
+          echo "  Docker Deploy: ${{ needs.deploy-docker.result }}"
+          echo ""
+          echo "  Schedule:"
+          echo "    Asian Open    00:00 UTC  (07:00 ICT)"
+          echo "    London Open   07:00 UTC  (14:00 ICT)"
+          echo "    NY/LN Overlap 12:00 UTC  (19:00 ICT)"
+          echo ""
+          echo "  Monitor: https://github.com/nuna69v-cell/A6..9V-GenX_FX.main/actions"
+          echo "=============================================="
