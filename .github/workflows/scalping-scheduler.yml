@@ -1,0 +1,64 @@
+name: GenX FX Scalping Session Scheduler
+
+on:
+  schedule:
+    # 09:00 ICT (Bangkok) = 02:00 UTC every day
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Manual trigger reason'
+        required: false
+        default: 'Manual scalping session start'
+
+jobs:
+  trigger-scalping-session:
+    name: Start Scalping Session
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log session start
+        run: |
+          echo "=============================================="
+          echo "  GenX FX — Scalping Session Starting"
+          echo "  Time (UTC): $(date -u)"
+          echo "  Time (ICT): $(TZ='Asia/Bangkok' date)"
+          echo "=============================================="
+
+      - name: Trigger GenX FX CI/CD Pipeline
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: ci-cd.yml
+          ref: main
+          token: ${{ secrets.GH_USER_TOKEN || github.token }}
+
+      - name: Trigger Auto-Sync
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: auto-sync-controller.yml
+          ref: main
+          token: ${{ secrets.GH_USER_TOKEN || github.token }}
+        continue-on-error: true
+
+      - name: Wait for CI/CD to start
+        run: sleep 30
+
+      - name: Check run status
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GH_USER_TOKEN || github.token }}
+          script: |
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'ci-cd.yml',
+              per_page: 3,
+            });
+            const latest = runs.data.workflow_runs[0];
+            if (latest) {
+              core.notice(`Latest CI/CD run: ${latest.html_url} | Status: ${latest.status}`);
+            }
+
+      - name: Session dispatched
+        run: |
+          echo "Scalping session workflows triggered successfully."
+          echo "Monitor progress at: https://github.com/nuna69v-cell/A6..9V-GenX_FX.main/actions"
