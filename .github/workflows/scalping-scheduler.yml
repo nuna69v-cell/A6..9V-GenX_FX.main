@@ -2,14 +2,18 @@ name: GenX FX Scalping Session Scheduler
 
 on:
   schedule:
-    # 09:00 ICT (Bangkok) = 02:00 UTC every day
-    - cron: '0 2 * * *'
+    # Asian Open    — 00:00 UTC (07:00 ICT / Bangkok)
+    - cron: '0 0 * * *'
+    # London Open   — 07:00 UTC (14:00 ICT / Bangkok)
+    - cron: '0 7 * * *'
+    # NY/LN Overlap — 12:00 UTC (19:00 ICT / Bangkok)
+    - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
-      reason:
-        description: 'Manual trigger reason'
+      session:
+        description: 'Session name (Asian / London / NY-LN Overlap)'
         required: false
-        default: 'Manual scalping session start'
+        default: 'Manual'
 
 jobs:
   trigger-scalping-session:
@@ -19,10 +23,22 @@ jobs:
       cicd_run_id: ${{ steps.get_run.outputs.run_id }}
       cicd_conclusion: ${{ steps.wait_cicd.outputs.conclusion }}
     steps:
+      - name: Detect session
+        id: session
+        run: |
+          HOUR=$(date -u +%H)
+          if [ "$HOUR" = "00" ]; then SESSION="Asian Open (07:00 ICT)"
+          elif [ "$HOUR" = "07" ]; then SESSION="London Open (14:00 ICT)"
+          elif [ "$HOUR" = "12" ]; then SESSION="NY / London-NY Overlap (19:00 ICT)"
+          else SESSION="${{ github.event.inputs.session || 'Manual' }}"
+          fi
+          echo "name=$SESSION" >> $GITHUB_OUTPUT
+
       - name: Log session start
         run: |
           echo "=============================================="
           echo "  GenX FX — Scalping Session Starting"
+          echo "  Session: ${{ steps.session.outputs.name }}"
           echo "  Time (UTC): $(date -u)"
           echo "  Time (ICT): $(TZ='Asia/Bangkok' date)"
           echo "=============================================="
@@ -123,7 +139,13 @@ jobs:
         run: |
           echo "=============================================="
           echo "  GenX FX Session Complete"
-          echo "  CI/CD: ${{ needs.trigger-scalping-session.outputs.cicd_conclusion }}"
+          echo "  CI/CD:         ${{ needs.trigger-scalping-session.outputs.cicd_conclusion }}"
           echo "  Docker Deploy: ${{ needs.deploy-docker.result }}"
+          echo ""
+          echo "  Schedule:"
+          echo "    Asian Open    00:00 UTC  (07:00 ICT)"
+          echo "    London Open   07:00 UTC  (14:00 ICT)"
+          echo "    NY/LN Overlap 12:00 UTC  (19:00 ICT)"
+          echo ""
           echo "  Monitor: https://github.com/nuna69v-cell/A6..9V-GenX_FX.main/actions"
           echo "=============================================="
