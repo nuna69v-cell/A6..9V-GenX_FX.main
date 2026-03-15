@@ -6,21 +6,21 @@
       "use": "@vercel/python"
     },
     {
-      "src": "dist/**",
-      "use": "@vercel/static"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/main.py"
+      "dest": "api/main.py"
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/$1"
+      "dest": "dist/$1"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }

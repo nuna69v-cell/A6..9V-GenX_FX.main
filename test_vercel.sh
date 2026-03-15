@@ -1,0 +1,3 @@
+export VERCEL_ORG_ID=team_A6_9V
+export VERCEL_PROJECT_ID=prj_genxfx
+vercel build
