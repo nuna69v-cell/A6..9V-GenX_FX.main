@@ -37,7 +37,7 @@ pydantic==2.12.5
 click==8.1.7
 
 # Async support
-aiofiles==23.2.0
+aiofiles==25.1.0
 
 # Math libraries (with wheel support)
 scipy==1.17.1
