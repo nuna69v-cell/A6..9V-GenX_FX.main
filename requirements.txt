@@ -13,7 +13,7 @@ TA-Lib==0.4.32
 sqlalchemy==2.0.23
 psycopg2-binary==2.9.9
 redis==5.0.1
-influxdb-client==1.38.0
+influxdb-client==1.50.0
 typer==0.9.0
 rich==13.7.0
 msal==1.26.0
