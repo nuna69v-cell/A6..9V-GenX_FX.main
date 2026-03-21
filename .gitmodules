@@ -1,3 +1,6 @@
-[submodule "logs_repo"]
-	path = logs_repo
-	url = https://github.com/nuna69v-cell/logs_repo.git
+[submodule "external/FXPRO-broker"]
+	path = external/FXPRO-broker
+	url = https://github.com/nuna69v-cell/FXPRO-broker.git
+[submodule "external/Autonomous-trading-Exness"]
+	path = external/Autonomous-trading-Exness
+	url = https://github.com/nuna69v-cell/Autonomous-trading-Exness.git
