@@ -15,7 +15,7 @@ yfinance==1.2.0
 # Essential Libraries
 joblib==1.5.3
 scipy==1.17.1
-matplotlib==3.7.5
+matplotlib==3.10.8
 aiohttp==3.13.3
 aiofiles==23.2.0
 
