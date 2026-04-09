@@ -7,7 +7,7 @@ fastapi>=0.115.0
 uvicorn[standard]==0.41.0
 pydantic>=2.10.0
 pydantic-settings>=2.4.0
-cryptography==46.0.5
+cryptography>=0.6
 aiohttp==3.13.3
 TA-Lib==0.4.32
 sqlalchemy==2.0.23
