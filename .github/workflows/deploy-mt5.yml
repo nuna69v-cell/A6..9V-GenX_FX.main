@@ -1,0 +1,88 @@
+name: Deploy MT5 Expert Advisors
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'expert-advisors/**'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release tag (e.g. v3.1.0). Leave blank to use date-based tag.'
+        required: false
+        default: ''
+
+jobs:
+  package-mt5:
+    name: Package & Release MT5 EAs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Determine release tag
+        id: tag
+        run: |
+          if [ -n "${{ github.event.inputs.release_tag }}" ]; then
+            TAG="${{ github.event.inputs.release_tag }}"
+          else
+            TAG="mt5-$(date -u +%Y%m%d-%H%M%S)"
+          fi
+          echo "value=$TAG" >> $GITHUB_OUTPUT
+          echo "Release tag: $TAG"
+
+      - name: Package MT5 EA files
+        run: |
+          mkdir -p dist/mt5-ea
+          # Copy all MT5 EA files from both locations
+          cp expert-advisors/*.mq5 dist/mt5-ea/ 2>/dev/null || true
+          cp expert-advisors/mt5_ea/*.mq5 dist/mt5-ea/ 2>/dev/null || true
+          cp expert-advisors/INSTALL_GUIDE.md dist/mt5-ea/
+          echo "Packaged files:"
+          ls -lh dist/mt5-ea/
+          cd dist
+          zip -r GenX_MT5_EA_${{ steps.tag.outputs.value }}.zip mt5-ea/
+          echo "Archive created:"
+          ls -lh GenX_MT5_EA_${{ steps.tag.outputs.value }}.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.value }}
+          name: "GenX MT5 Expert Advisors — ${{ steps.tag.outputs.value }}"
+          body: |
+            ## GenX FX MT5 Expert Advisors
+
+            ### Included EAs
+            | File | Broker | Notes |
+            |------|--------|-------|
+            | `GenX_Exness_MT5.mq5` | Exness | Account 169926536 / Exness-MT5Real24 |
+            | `GenX_FxPro_MT5.mq5` | FxPro | Account 530142568 / FxPro-MT5 Live02 |
+            | `GenXAI_Advanced_EA.mq5` | Any | AI-powered EA with ensemble model |
+            | `GenZTradingEA.mq5` | Any | GenZ signal receiver |
+            | `EXNESS_GenX_Trader.mq5` | Exness | Exness-specific trader |
+            | `GenX_AI_EA.mq5` | Any | Core GenX AI EA |
+
+            ### Installation
+            1. Download the zip below
+            2. Follow `INSTALL_GUIDE.md` inside the zip
+            3. Set `ServerURL` in the EA settings to your deployed backend URL
+
+            > ⚠️ **Before using:** In MT5, go to **Tools → Options → Expert Advisors** and add your backend URL to **Allow WebRequest for listed URL**.
+          files: dist/GenX_MT5_EA_${{ steps.tag.outputs.value }}.zip
+          draft: false
+          prerelease: false
+          generate_release_notes: false
+
+      - name: Summary
+        run: |
+          echo "=============================================="
+          echo "  MT5 EA Deployment Complete"
+          echo "  Tag:  ${{ steps.tag.outputs.value }}"
+          echo "  Zip:  GenX_MT5_EA_${{ steps.tag.outputs.value }}.zip"
+          echo "  Release: https://github.com/${{ github.repository }}/releases/tag/${{ steps.tag.outputs.value }}"
+          echo "=============================================="
