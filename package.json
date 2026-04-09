@@ -31,7 +31,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "concurrently": "^8.2.2",
+    "concurrently": "^9.2.1",
     "cors": "^2.8.5",
     "drizzle-orm": "^0.30.10",
     "embla-carousel-react": "^8.0.4",
