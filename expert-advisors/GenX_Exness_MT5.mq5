@@ -14,9 +14,10 @@
 
 //--- !! IMPORTANT: In MT5, go to Tools > Options > Expert Advisors
 //---    and add your server URL to the "Allow WebRequest for listed URL" list.
+//---    e.g. http://<VPS-IP>:8000  or  https://<your-domain>
 
-//--- Server settings (edit ServerURL to match your deployed Replit URL)
-input string   ServerURL        = "https://YOUR-REPLIT-APP.replit.app"; // Dashboard server URL
+//--- Server settings (set ServerURL to your Hostinger VPS public IP/domain)
+input string   ServerURL        = "http://YOUR-VPS-IP:8000"; // GenX API URL on VPS (e.g. http://1.2.3.4:8000)
 input string   BrokerID         = "exness";                              // Broker identifier
 input string   AccountNumber    = "169926536";                           // MT5 account number
 input string   BrokerServer     = "Exness-MT5Real24";                   // Broker server name

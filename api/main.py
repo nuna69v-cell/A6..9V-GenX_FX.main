@@ -36,7 +36,7 @@ except ImportError:
 
 import api.redis
 from api.database import get_db
-from api.routers import ea_http, market_data, performance, predictions, system, trading
+from api.routers import ea_http, market_data, mt45, performance, predictions, system, trading
 
 predictor = None
 scalping_service = None
@@ -163,6 +163,7 @@ app.include_router(trading.router, prefix="/api/v1")
 app.include_router(
     ea_http.router
 )  # EA HTTP endpoints (no /api/v1 prefix for compatibility)
+app.include_router(mt45.router)  # MT4/MT5 bridge: /api/mt45/* (Exness EA compatible)
 
 
 # --- Optimization: Define static API responses as constants ---
